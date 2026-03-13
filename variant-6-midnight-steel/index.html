@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bud Invest Steel | Midnight Steel</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Rubik:wght@300;400;500;600&family=Saira:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg: #06101F; /* Głęboki atrament */
+            --color-surface: #0A1628; /* Nocny granat */
+            --color-accent: #4A90D9; /* Metaliczny błękit */
+            --color-text: #B8C4D0; /* Srebrna stal */
+            --color-white: #FFFFFF;
+            
+            --font-heading: 'Saira', sans-serif;
+            --font-body: 'Rubik', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+            
+            --radius-sm: 0.5rem;
+            --radius-md: 1rem;
+            --radius-lg: 2rem;
+            --radius-full: 9999px;
+            
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Noise Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-white);
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(6, 16, 31, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(184, 196, 208, 0.1);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo svg {
+            color: var(--color-white);
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--color-accent);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover {
+            color: var(--color-white);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-full);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-white);
+            transform: translateY(100%);
+            transition: var(--transition-smooth);
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            transform: translateY(0);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(74, 144, 217, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-white);
+            border: 1px solid rgba(184, 196, 208, 0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(184, 196, 208, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--color-text);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(6,16,31,0.7) 0%, rgba(6,16,31,1) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 6rem);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--color-accent);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(184, 196, 208, 0.2);
+            padding-top: 2rem;
+        }
+
+        .hero-stat p:first-child {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-stat p:last-child {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text);
+            margin-bottom: 0;
+        }
+
+        /* Sections */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .about-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Services Section */
+        .services-section {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-lg);
+            margin: 0 2%;
+            padding: 8rem 5%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--color-bg);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(184, 196, 208, 0.05);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74,144,217,0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(74, 144, 217, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Certs Section */
+        .certs-section {
+            text-align: center;
+        }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .cert-card {
+            padding: 3rem;
+            border: 1px dashed rgba(184, 196, 208, 0.2);
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+        }
+
+        .cert-card:hover {
+            background: var(--color-surface);
+            border-color: var(--color-accent);
+        }
+
+        .cert-card h4 {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-item:nth-child(1) { grid-column: span 8; }
+        .gallery-item:nth-child(2) { grid-column: span 4; aspect-ratio: 3/4; }
+        .gallery-item:nth-child(3) { grid-column: span 4; aspect-ratio: 3/4; }
+        .gallery-item:nth-child(4) { grid-column: span 8; }
+
+        @media (max-width: 768px) {
+            .gallery-item { grid-column: span 12 !important; aspect-ratio: 16/9 !important; }
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg) 100%);
+            padding: 10rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(184, 196, 208, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(74,144,217,0.1) 0%, transparent 70%);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-bg);
+            padding: 6rem 0 2rem;
+            border-top: 1px solid rgba(184, 196, 208, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+
+        .footer-info p {
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .footer-links h4 {
+            font-family: var(--font-heading);
+            color: var(--color-white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(184, 196, 208, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="35" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" fill="currentColor" letter-spacing="2">BUD INVEST</text>
+                    <text x="0" y="47" font-family="Arial, sans-serif" font-size="10" fill="currentColor" letter-spacing="4">STEEL</text>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="#o-firmie" class="nav-link">O firmie</a>
+                <a href="#uslugi" class="nav-link">Usługi</a>
+                <a href="#realizacje" class="nav-link">Realizacje</a>
+                <a href="#kontakt" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Wycena</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-bg gs-parallax"></div>
+            <div class="hero-overlay"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-label gs-reveal">Bud Invest Steel</span>
+                    <h1 class="gs-reveal">Stal, która <br><span>wytrzyma próbę czasu.</span></h1>
+                    <p class="gs-reveal">Międzynarodowa firma z 15-letnim doświadczeniem. Kompleksowa realizacja projektów przemysłowych w Polsce i Niemczech.</p>
+                    <div class="gs-reveal">
+                        <a href="#kontakt" class="btn btn-primary">Zapytaj o wycenę</a>
+                    </div>
+                    
+                    <div class="hero-stats gs-reveal">
+                        <div class="hero-stat">
+                            <p>15+</p>
+                            <p>Lat Doświadczenia</p>
+                        </div>
+                        <div class="hero-stat">
+                            <p>PL/DE</p>
+                            <p>Główne Rynki</p>
+                        </div>
+                        <div class="hero-stat">
+                            <p>ISO</p>
+                            <p>Certyfikowana Jakość</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="o-firmie" class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <div class="section-header">
+                        <span class="section-label gs-reveal">O firmie</span>
+                        <h2 class="section-title gs-reveal">Stabilna i doświadczona marka.</h2>
+                    </div>
+                    <p class="gs-reveal">Jesteśmy ekspertem w zakresie kompleksowej realizacji projektów konstrukcji stalowych, obróbki metali, oraz rurociągów przemysłowych. Obsługujemy rynki Polski i Niemiec, dostarczając rozwiązania dla najbardziej wymagających branż.</p>
+                    <p class="gs-reveal">Przemysł chemiczny, petrochemiczny, energetyczny czy stoczniowy - to tam nasza stal i precyzja pracują na sukces naszych klientów każdego dnia i nocy.</p>
+                    <a href="#kontakt" class="btn btn-outline gs-reveal" style="margin-top: 2rem;">Poznajmy się</a>
+                </div>
+                <div class="about-image gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Nocna zmiana w fabryce" onerror="this.src='https://via.placeholder.com/1000x1200/0A1628/B8C4D0?text=Bud+Invest+Steel'">
+                </div>
+            </div>
+        </section>
+
+        <section id="uslugi">
+            <div class="services-section">
+                <div class="section-header text-center" style="text-align: center; align-items: center;">
+                    <span class="section-label gs-reveal">Nasze Usługi</span>
+                    <h2 class="section-title gs-reveal">Precyzja w każdym detalu</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card gs-card">
+                        <span class="service-icon">01</span>
+                        <h3>Obróbka metali</h3>
+                        <p>Precyzyjna obróbka z wykorzystaniem nowoczesnych technologii CNC. Gwarantujemy dokładność i powtarzalność.</p>
+                    </div>
+                    <div class="service-card gs-card">
+                        <span class="service-icon">02</span>
+                        <h3>Konstrukcje stalowe</h3>
+                        <p>Projektowanie i produkcja wytrzymałych konstrukcji dla hal, magazynów i obiektów przemysłowych.</p>
+                    </div>
+                    <div class="service-card gs-card">
+                        <span class="service-icon">03</span>
+                        <h3>Rurociągi przemysłowe</h3>
+                        <p>Montaż i spawanie rurociągów dla branży chemicznej, petrochemicznej i energetycznej.</p>
+                    </div>
+                    <div class="service-card gs-card">
+                        <span class="service-icon">04</span>
+                        <h3>Zbiorniki ciśnieniowe</h3>
+                        <p>Certyfikowana produkcja zbiorników spełniających najwyższe normy bezpieczeństwa.</p>
+                    </div>
+                    <div class="service-card gs-card">
+                        <span class="service-icon">05</span>
+                        <h3>Prefabrykacja betonu</h3>
+                        <p>Wysokiej jakości elementy betonowe gotowe do szybkiego montażu na placu budowy.</p>
+                    </div>
+                    <div class="service-card gs-card">
+                        <span class="service-icon">06</span>
+                        <h3>Zbrojenia budowlane</h3>
+                        <p>Kompleksowe przygotowanie i montaż stali zbrojeniowej dla inwestycji kubaturowych.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certyfikaty" class="container certs-section">
+            <div class="section-header" style="align-items: center;">
+                <span class="section-label gs-reveal">Standardy</span>
+                <h2 class="section-title gs-reveal">Certyfikowana Jakość</h2>
+            </div>
+            <div class="certs-grid">
+                <div class="cert-card gs-card">
+                    <h4>EN ISO 3834</h4>
+                    <p>Wymagania jakości dotyczące spawania materiałów metalowych.</p>
+                </div>
+                <div class="cert-card gs-card">
+                    <h4>EN 1090</h4>
+                    <p>Wykonanie konstrukcji stalowych i aluminiowych.</p>
+                </div>
+                <div class="cert-card gs-card">
+                    <h4>Świadectwo</h4>
+                    <p>Kwalifikowane świadectwo spawalnicze dla najwyższych wymogów.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="realizacje" class="container">
+            <div class="section-header">
+                <span class="section-label gs-reveal">Realizacje</span>
+                <h2 class="section-title gs-reveal">Nocna strona przemysłu</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Konstrukcje przemysłowe" onerror="this.src='https://via.placeholder.com/1200x675/0A1628/B8C4D0'">
+                </div>
+                <div class="gallery-item gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1535090467336-9501f96eef89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spawanie" onerror="this.src='https://via.placeholder.com/800x1066/0A1628/B8C4D0'">
+                </div>
+                <div class="gallery-item gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Obróbka CNC" onerror="this.src='https://via.placeholder.com/800x1066/0A1628/B8C4D0'">
+                </div>
+                <div class="gallery-item gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1580983554181-79bfa780824b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Huta nocą" onerror="this.src='https://via.placeholder.com/1200x675/0A1628/B8C4D0'">
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt" class="cta-section">
+            <div class="container">
+                <h2 class="gs-reveal">Zbudujmy to razem.</h2>
+                <p class="gs-reveal" style="font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">Skontaktuj się z nami, aby omówić szczegóły Twojego projektu i otrzymać indywidualną wycenę.</p>
+                <a href="mailto:kontakt@bud-invest.com" class="btn btn-primary btn-lg gs-reveal" style="padding: 1.5rem 3rem; font-size: 1.2rem;">Zapytaj o wycenę</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="0" y="35" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" fill="currentColor" letter-spacing="2">BUD INVEST</text>
+                            <text x="0" y="47" font-family="Arial, sans-serif" font-size="10" fill="currentColor" letter-spacing="4">STEEL</text>
+                        </svg>
+                    </div>
+                    <p style="max-width: 300px; color: var(--color-text); margin-top: 1rem;">Międzynarodowa firma z 15-letnim doświadczeniem w branży stalowej i przemysłowej.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Kontakt</h4>
+                    <ul class="footer-info">
+                        <li><p>ul. Dworcowa 12</p></li>
+                        <li><p>83-100 Tczew, Polska</p></li>
+                        <li style="margin-top: 1rem;"><p><a href="tel:+48511641580">+48 511 641 580</a></p></li>
+                        <li><p><a href="mailto:kontakt@bud-invest.com">kontakt@bud-invest.com</a></p></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="#o-firmie">O firmie</a></li>
+                        <li><a href="#uslugi">Usługi</a></li>
+                        <li><a href="#certyfikaty">Certyfikaty</a></li>
+                        <li><a href="#realizacje">Realizacje</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bud Invest Steel. Wszelkie prawa zastrzeżone.</p>
+                <p>Designed with precision.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar background on scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initial setup
+        gsap.set('.gs-reveal', { y: 50, opacity: 0 });
+        gsap.set('.gs-card', { y: 50, opacity: 0 });
+
+        // Hero animations
+        const heroTl = gsap.timeline();
+        heroTl.to('.hero .gs-reveal', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.1,
+            ease: 'power3.out',
+            delay: 0.2
+        });
+
+        // ScrollTrigger animations for reveal elements
+        gsap.utils.toArray('section').forEach(section => {
+            const reveals = section.querySelectorAll('.gs-reveal');
+            if (reveals.length > 0) {
+                gsap.to(reveals, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'power3.out'
+                });
+            }
+
+            const cards = section.querySelectorAll('.gs-card');
+            if (cards.length > 0) {
+                gsap.to(cards, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 75%',
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'back.out(1.2)'
+                });
+            }
+        });
+
+        // Hero Parallax effect
+        gsap.to('.gs-parallax', {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: '20%',
+            ease: 'none'
+        });
+    </script>
+</body>
+</html>

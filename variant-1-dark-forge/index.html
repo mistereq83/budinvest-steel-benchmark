@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bud Invest Steel | Kształtujemy stal. Budujemy przyszłość.</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --color-black: #0A0A0A;
+            --color-orange: #E85D04;
+            --color-dark-gray: #1A1A2E;
+            --color-smoke: #F5F5F5;
+            
+            --font-heading: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter Tight', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --radius-sm: 0.5rem;
+            --radius-md: 1rem;
+            --radius-lg: 1.5rem;
+            --radius-xl: 2rem;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-black);
+            color: var(--color-smoke);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .text-orange { color: var(--color-orange); }
+        .text-mono { font-family: var(--font-mono); font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 0;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--color-orange);
+            color: var(--color-black);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-smoke);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-primary:hover {
+            color: var(--color-black);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(232, 93, 4, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-smoke);
+            border: 1px solid var(--color-smoke);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-smoke);
+            color: var(--color-black);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.3s ease, padding 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--color-smoke);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--color-orange);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--color-orange); }
+        .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-smoke);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'); /* molten metal / sparks */
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            transform: scale(1.05);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.4) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero-label {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--color-orange);
+            color: var(--color-orange);
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 8vw, 8rem);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            color: rgba(245, 245, 245, 0.8);
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+            background-color: var(--color-black);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            margin-bottom: 2rem;
+            color: var(--color-smoke);
+        }
+
+        .about-text p {
+            font-size: 1.125rem;
+            color: rgba(245, 245, 245, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            border-left: 2px solid var(--color-orange);
+            padding-left: 1.5rem;
+        }
+
+        .stat-num {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: var(--color-orange);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-desc {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: rgba(245, 245, 245, 0.6);
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/5;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inset 0 0 50px rgba(10,10,10,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 5%;
+            background-color: var(--color-dark-gray);
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: clamp(3rem, 5vw, 5rem);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: 3rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-orange);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(26, 26, 46, 0.8);
+            border-color: rgba(232, 93, 4, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--color-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: rgba(245, 245, 245, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Certificates Section */
+        .certificates {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--color-orange) 0%, #b04602 100%);
+            color: var(--color-black);
+            text-align: center;
+        }
+
+        .certificates h2 {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            margin-bottom: 3rem;
+        }
+
+        .cert-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+        }
+
+        .cert-item {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cert-item span {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 8rem 5%;
+            background-color: var(--color-black);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-overlay h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 5%;
+            background-color: var(--color-dark-gray);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1579541591970-e66606048fc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(3rem, 6vw, 6rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            color: rgba(245, 245, 245, 0.7);
+            margin-bottom: 3rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-black);
+            padding: 6rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--color-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col p, .footer-col a {
+            color: rgba(245, 245, 245, 0.6);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-smoke);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.875rem;
+            color: rgba(245, 245, 245, 0.4);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .about, .projects-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* simple mobile handling for brevity */
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 4rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <nav id="navbar">
+        <a href="#" class="logo" aria-label="Bud Invest Steel">
+            <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="35" font-family="'Arial Black', sans-serif" font-size="16" font-weight="900" fill="white" letter-spacing="2">BUD INVEST</text>
+                <text x="0" y="47" font-family="Arial, sans-serif" font-size="10" fill="white" letter-spacing="4">STEEL</text>
+            </svg>
+        </a>
+        <div class="nav-links">
+            <a href="#o-firmie">O firmie</a>
+            <a href="#uslugi">Usługi</a>
+            <a href="#certyfikaty">Certyfikaty</a>
+            <a href="#realizacje">Realizacje</a>
+        </div>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-label text-mono gs-reveal">Stabilna i doświadczona marka</span>
+            <h1 class="text-smoke gs-reveal">Kształtujemy stal.<br><span class="text-orange">Budujemy przyszłość.</span></h1>
+            <p class="gs-reveal">Międzynarodowa firma z 15+ letnim doświadczeniem. Kompleksowa realizacja projektów konstrukcji stalowych i obróbka metali.</p>
+            <div class="gs-reveal">
+                <a href="#kontakt" class="btn btn-primary">Zapytaj o wycenę</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="o-firmie">
+        <div class="about-text">
+            <span class="text-mono text-orange gs-reveal">O firmie</span>
+            <h2 class="gs-reveal">Potężny fundament dla Twojego projektu</h2>
+            <p class="gs-reveal">Jesteśmy sprawdzonym partnerem w branży przemysłowej. Nasza specjalność to kompleksowa realizacja projektów konstrukcji stalowych, precyzyjna obróbka metali oraz prefabrykacja elementów betonowych.</p>
+            <p class="gs-reveal">Działamy z pasją i precyzją, łącząc nowoczesne technologie z rzemieślniczym doświadczeniem, aby dostarczać rozwiązania najwyższej jakości.</p>
+            
+            <div class="stats-grid gs-reveal">
+                <div class="stat-item">
+                    <div class="stat-num">15+</div>
+                    <div class="stat-desc">LAT DOŚWIADCZENIA</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">PL/DE</div>
+                    <div class="stat-desc">OBSŁUGIWANE RYNKI</div>
+                </div>
+            </div>
+        </div>
+        <div class="about-image gs-reveal">
+            <img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Praca w kuźni, spawanie konstrukcji stalowej" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&w=1000&q=80'">
+        </div>
+    </section>
+
+    <section class="services" id="uslugi">
+        <div class="section-header gs-reveal">
+            <span class="text-mono text-orange">Nasza oferta</span>
+            <h2>Usługi</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card gs-card">
+                <div class="service-icon">⚒️</div>
+                <h3>Obróbka metali</h3>
+                <p>Precyzyjne cięcie, gięcie i spawanie. Wykorzystujemy zaawansowane technologie CNC dla maksymalnej dokładności.</p>
+            </div>
+            <div class="service-card gs-card">
+                <div class="service-icon">🏗️</div>
+                <h3>Konstrukcje stalowe</h3>
+                <p>Projektowanie, prefabrykacja i montaż hal, magazynów oraz zaawansowanych konstrukcji wsporczych.</p>
+            </div>
+            <div class="service-card gs-card">
+                <div class="service-icon">🚰</div>
+                <h3>Rurociągi przemysłowe</h3>
+                <p>Instalacje technologiczne dla branży chemicznej, petrochemicznej i energetycznej.</p>
+            </div>
+            <div class="service-card gs-card">
+                <div class="service-icon">🛢️</div>
+                <h3>Zbiorniki ciśnieniowe</h3>
+                <p>Certyfikowana produkcja zbiorników spełniających najwyższe normy bezpieczeństwa.</p>
+            </div>
+            <div class="service-card gs-card">
+                <div class="service-icon">🏢</div>
+                <h3>Prefabrykacja betonu</h3>
+                <p>Produkcja powtarzalnych elementów konstrukcyjnych z betonu najwyższej klasy.</p>
+            </div>
+            <div class="service-card gs-card">
+                <div class="service-icon">⛓️</div>
+                <h3>Zbrojenia budowlane</h3>
+                <p>Gotowe figury zbrojeniowe i siatki przygotowane zgodnie ze specyfikacją techniczną.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="certificates" id="certyfikaty">
+        <h2 class="gs-reveal">Certyfikowana jakość</h2>
+        <div class="cert-grid">
+            <div class="cert-item gs-reveal">
+                EN ISO 3834
+                <span>System jakości spawania</span>
+            </div>
+            <div class="cert-item gs-reveal">
+                EN 1090
+                <span>Zakładowa kontrola produkcji</span>
+            </div>
+            <div class="cert-item gs-reveal">
+                Świadectwo spawalnicze
+                <span>Uprawnienia UDT / TÜV</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="realizacje">
+        <div class="section-header gs-reveal">
+            <span class="text-mono text-orange">Nasze prace</span>
+            <h2>Wybrane realizacje</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card gs-project">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Hala produkcyjna" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&w=1000&q=80'">
+                <div class="project-overlay">
+                    <h3>Konstrukcja Hali Przemysłowej</h3>
+                    <p class="text-mono">Sektor Logistyczny</p>
+                </div>
+            </div>
+            <div class="project-card gs-project">
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Spawanie rurociągów" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&w=1000&q=80'">
+                <div class="project-overlay">
+                    <h3>Instalacja Rurociągowa</h3>
+                    <p class="text-mono">Przemysł Chemiczny</p>
+                </div>
+            </div>
+            <div class="project-card gs-project">
+                <img src="https://images.unsplash.com/photo-1533036437505-18e38f62f33f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Zbiorniki" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&w=1000&q=80'">
+                <div class="project-overlay">
+                    <h3>Zbiorniki Ciśnieniowe</h3>
+                    <p class="text-mono">Sektor Petrochemiczny</p>
+                </div>
+            </div>
+            <div class="project-card gs-project">
+                <img src="https://images.unsplash.com/photo-1498084393753-b411b2d26b34?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Prefabrykacja" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&w=1000&q=80'">
+                <div class="project-overlay">
+                    <h3>Zbrojenia i Prefabrykaty</h3>
+                    <p class="text-mono">Budownictwo Infrastrukturalne</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="kontakt">
+        <div class="cta-bg" id="ctaBg"></div>
+        <div class="cta-content">
+            <h2 class="gs-reveal">Gotowy do współpracy?</h2>
+            <p class="gs-reveal">Skontaktuj się z nami, aby omówić szczegóły Twojego projektu i otrzymać precyzyjną wycenę. Budujemy z solidnością, jakiej oczekujesz.</p>
+            <div class="gs-reveal">
+                <a href="mailto:kontakt@bud-invest.com" class="btn btn-primary">Zapytaj o wycenę</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 1.5rem;">
+                    <text x="0" y="35" font-family="'Arial Black', sans-serif" font-size="16" font-weight="900" fill="white" letter-spacing="2">BUD INVEST</text>
+                    <text x="0" y="47" font-family="Arial, sans-serif" font-size="10" fill="white" letter-spacing="4">STEEL</text>
+                </svg>
+                <p>Stabilna i doświadczona marka. Specjaliści od konstrukcji stalowych i obróbki metali w Polsce i Niemczech.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Szybkie linki</h4>
+                <a href="#o-firmie">O firmie</a>
+                <a href="#uslugi">Usługi</a>
+                <a href="#certyfikaty">Certyfikaty</a>
+                <a href="#realizacje">Realizacje</a>
+            </div>
+            <div class="footer-col">
+                <h4>Usługi</h4>
+                <a href="#">Obróbka metali</a>
+                <a href="#">Konstrukcje stalowe</a>
+                <a href="#">Rurociągi przemysłowe</a>
+                <a href="#">Zbiorniki ciśnieniowe</a>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p>ul. Dworcowa 12<br>83-100 Tczew</p>
+                <p>+48 511 641 580</p>
+                <a href="mailto:kontakt@bud-invest.com" class="text-orange">kontakt@bud-invest.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bud Invest Steel. Wszelkie prawa zastrzeżone.</p>
+            <p>Realizacja: Molab</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Hero Parallax
+        gsap.to('#heroBg', {
+            yPercent: 30,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // General reveals
+        const reveals = gsap.utils.toArray('.gs-reveal');
+        reveals.forEach((elem) => {
+            gsap.fromTo(elem, 
+                { y: 50, autoAlpha: 0 },
+                { 
+                    y: 0, 
+                    autoAlpha: 1, 
+                    duration: 1, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // Services stagger
+        gsap.from('.gs-card', {
+            y: 50,
+            autoAlpha: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: ".services-grid",
+                start: "top 80%"
+            }
+        });
+
+        // Projects stagger
+        gsap.from('.gs-project', {
+            y: 50,
+            autoAlpha: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: ".projects-grid",
+                start: "top 80%"
+            }
+        });
+
+        // CTA Background Parallax
+        gsap.to('#ctaBg', {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".cta-section",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    </script>
+</body>
+</html>

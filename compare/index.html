@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budinvest Steel — Design Benchmark (10 wariantów)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --border: #222;
+  --text: #e0e0e0;
+  --muted: #888;
+  --accent: #E85D04;
+}
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
+
+/* Header */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+}
+.header-inner {
+  max-width: 1600px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap;
+}
+.header h1 { font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
+.header h1 span { color: var(--accent); }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: center;
+}
+.tab {
+  padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; cursor: pointer; transition: all 0.2s;
+  color: var(--muted); white-space: nowrap;
+}
+.tab:hover { border-color: var(--accent); color: var(--text); }
+.tab.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+
+/* View modes */
+.view-modes { display: flex; gap: 0.5rem; }
+.view-btn {
+  padding: 0.4rem 0.8rem; font-size: 0.75rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; cursor: pointer; color: var(--muted);
+  transition: all 0.2s;
+}
+.view-btn:hover { border-color: var(--accent); color: var(--text); }
+.view-btn.active { background: #1a1a1a; border-color: var(--accent); color: var(--accent); }
+
+/* Frame container */
+.frame-container {
+  margin-top: 80px; padding: 1rem;
+  display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+}
+.frame-wrapper {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; flex: 1;
+  min-width: 0; max-width: 100%;
+}
+.frame-label {
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem; font-weight: 600;
+  background: rgba(20,20,20,0.9);
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.frame-label .variant-name { color: var(--accent); }
+.frame-label .variant-desc { color: var(--muted); font-weight: 400; font-size: 0.7rem; }
+iframe {
+  width: 100%; height: calc(100vh - 140px);
+  border: none; background: #fff;
+}
+
+/* Split view */
+.frame-container.split { flex-wrap: nowrap; }
+.frame-container.split .frame-wrapper { flex: 1; min-width: 45%; }
+
+/* Grid view */
+.frame-container.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 1rem;
+}
+.frame-container.grid iframe { height: 500px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header-inner { flex-direction: column; align-items: stretch; }
+  .tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+  .frame-container.split { flex-wrap: wrap; }
+  .frame-container.grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Budinvest Steel — <span>Design Benchmark</span></h1>
+    <div class="tabs" id="tabs"></div>
+    <div class="view-modes">
+      <button class="view-btn active" data-view="single">Single</button>
+      <button class="view-btn" data-view="split">Split</button>
+      <button class="view-btn" data-view="grid">All 10</button>
+    </div>
+  </div>
+</div>
+
+<div class="frame-container" id="frames"></div>
+
+<script>
+const variants = [
+  { id: 1, name: 'Dark Forge', desc: 'Czarny + ognisty pomarańcz', path: '../variant-1-dark-forge/index.html' },
+  { id: 2, name: 'Steel Blueprint', desc: 'Granat + cyjan techniczny', path: '../variant-2-steel-blueprint/index.html' },
+  { id: 3, name: 'Welding Arc', desc: 'Grafit + niebieski łuk', path: '../variant-3-welding-arc/index.html' },
+  { id: 4, name: 'Carbon Fiber', desc: 'Karbon + czerwony wyścigowy', path: '../variant-4-carbon-fiber/index.html' },
+  { id: 5, name: 'Industrial Loft', desc: 'Beton + rdzawy pomarańcz', path: '../variant-5-industrial-loft/index.html' },
+  { id: 6, name: 'Midnight Steel', desc: 'Nocny granat + metaliczny błękit', path: '../variant-6-midnight-steel/index.html' },
+  { id: 7, name: 'Safety Orange', desc: 'Antracyt + safety orange', path: '../variant-7-safety-orange/index.html' },
+  { id: 8, name: 'Brushed Metal', desc: 'Srebrny + złoty akcent', path: '../variant-8-brushed-metal/index.html' },
+  { id: 9, name: 'Concrete & Iron', desc: 'Beton + żelazna czerwień', path: '../variant-9-concrete-iron/index.html' },
+  { id: 10, name: 'Precision Engineering', desc: 'Biały + czerwony precyzji', path: '../variant-10-precision-engineering/index.html' },
+];
+
+let currentView = 'single';
+let activeVariants = [0];
+let splitSecond = 1;
+
+// Build tabs
+const tabsEl = document.getElementById('tabs');
+variants.forEach((v, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'tab' + (i === 0 ? ' active' : '');
+  tab.textContent = `${v.id}. ${v.name}`;
+  tab.dataset.index = i;
+  tab.addEventListener('click', () => selectVariant(i));
+  tabsEl.appendChild(tab);
+});
+
+// View mode buttons
+document.querySelectorAll('.view-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentView = btn.dataset.view;
+    render();
+  });
+});
+
+function selectVariant(index) {
+  if (currentView === 'split') {
+    if (activeVariants[0] === index) return;
+    splitSecond = index;
+  } else {
+    activeVariants = [index];
+  }
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab')[index].classList.add('active');
+  render();
+}
+
+function createFrame(v) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'frame-wrapper';
+  wrapper.innerHTML = `
+    <div class="frame-label">
+      <span class="variant-name">${v.id}. ${v.name}</span>
+      <span class="variant-desc">${v.desc}</span>
+    </div>
+    <iframe src="${v.path}" loading="lazy"></iframe>
+  `;
+  return wrapper;
+}
+
+function render() {
+  const container = document.getElementById('frames');
+  container.innerHTML = '';
+  container.className = 'frame-container';
+
+  if (currentView === 'single') {
+    container.appendChild(createFrame(variants[activeVariants[0]]));
+  } else if (currentView === 'split') {
+    container.classList.add('split');
+    container.appendChild(createFrame(variants[activeVariants[0]]));
+    container.appendChild(createFrame(variants[splitSecond]));
+  } else if (currentView === 'grid') {
+    container.classList.add('grid');
+    variants.forEach(v => container.appendChild(createFrame(v)));
+  }
+}
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bud Invest Steel | Inżynieria Najwyższej Klasy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --color-black: #0D0D0D;
+            --color-gray-dark: #1D1D1D;
+            --color-silver: #C0C0C0;
+            --color-red: #E63946;
+            --font-heading: 'Orbitron', sans-serif;
+            --font-body: 'Exo 2', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-black);
+            color: var(--color-silver);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Carbon fiber texture overlay */
+        .carbon-bg {
+            background-image: 
+                radial-gradient(ellipse at center, transparent 0%, rgba(13,13,13,0.8) 100%),
+                repeating-linear-gradient(45deg, var(--color-gray-dark) 25%, transparent 25%, transparent 75%, var(--color-gray-dark) 75%, var(--color-gray-dark)),
+                repeating-linear-gradient(45deg, var(--color-gray-dark) 25%, var(--color-black) 25%, var(--color-black) 75%, var(--color-gray-dark) 75%, var(--color-gray-dark));
+            background-position: 0 0, 10px 10px;
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 100;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo svg {
+            color: white;
+            transition: color 0.3s;
+        }
+        
+        .logo:hover svg {
+            color: var(--color-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-red);
+            transform: translateY(-1px);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--color-red);
+            color: #fff;
+            padding: 1rem 2rem;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: var(--color-red);
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            filter: grayscale(80%) contrast(120%);
+            opacity: 0.4;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, var(--color-black) 0%, transparent 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--color-red);
+            margin-bottom: 1rem;
+            display: block;
+            letter-spacing: 0.2em;
+            font-size: 0.9rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: var(--color-silver);
+            max-width: 600px;
+        }
+
+        /* Stats Strip */
+        .stats-strip {
+            background: var(--color-gray-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem 0;
+            margin-top: -1px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--color-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-silver);
+        }
+
+        /* Section Setup */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-header .mono-tag {
+            font-family: var(--font-mono);
+            color: var(--color-red);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: #fff;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(29, 29, 29, 0.6);
+            border: 1px solid rgba(192, 192, 192, 0.1);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--ease-out-expo);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-red);
+            background: rgba(29, 29, 29, 0.9);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--color-red);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .service-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: rgba(192, 192, 192, 0.8);
+            font-size: 0.95rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            cursor: pointer;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-out-expo);
+            filter: grayscale(50%);
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, var(--color-black) 0%, transparent 100%);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .project-card:hover .project-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info span {
+            font-family: var(--font-mono);
+            color: var(--color-red);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Certificates */
+        .certs {
+            background: var(--color-gray-dark);
+            text-align: center;
+        }
+
+        .certs-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .cert-item {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #fff;
+            padding: 2rem 3rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--color-black);
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            transition: all 0.3s ease;
+        }
+
+        .cert-item:hover {
+            border-color: var(--color-red);
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(rgba(13,13,13,0.9), rgba(13,13,13,0.9)), url('https://images.unsplash.com/photo-1504917595217-d4bffc64684d?auto=format&fit=crop&q=80') center/cover;
+            padding: 10rem 0;
+            border-top: 1px solid rgba(230, 57, 70, 0.3);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-black);
+            padding: 6rem 0 3rem;
+            border-top: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .footer-col p, .footer-col a {
+            color: var(--color-silver);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-red);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: rgba(192, 192, 192, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid, .projects-grid, .footer-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .cta-section h2 { font-size: 2.5rem; }
+            section { padding: 4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="carbon-bg"></div>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="35" font-family="'Orbitron', sans-serif" font-size="20" font-weight="900" fill="currentColor" letter-spacing="2">BUD INVEST</text>
+                    <text x="0" y="47" font-family="'Exo 2', sans-serif" font-size="10" fill="currentColor" letter-spacing="4" font-weight="600">STEEL</text>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="#o-firmie">O firmie</a>
+                <a href="#uslugi">Usługi</a>
+                <a href="#realizacje">Realizacje</a>
+                <a href="#kontakt" class="btn">Zapytaj o wycenę</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content gs-reveal">
+                <span class="hero-subtitle">// PRECYZJA. WYTRZYMAŁOŚĆ. TECHNOLOGIA.</span>
+                <h1>Inżynieria najwyższej klasy.<br><span style="color: var(--color-red);">Stal bez kompromisów.</span></h1>
+                <p>Kompleksowa realizacja projektów konstrukcji stalowych, rurociągów i zbiorników. Stabilna i doświadczona marka dla rynków w Polsce i Niemczech.</p>
+                <a href="#kontakt" class="btn">Zapytaj o wycenę</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-strip gs-reveal">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Lat Doświadczenia</p>
+                </div>
+                <div class="stat-item">
+                    <h3>PL / DE</h3>
+                    <p>Główne Rynki</p>
+                </div>
+                <div class="stat-item">
+                    <h3>ISO / EN</h3>
+                    <p>Certyfikowana Jakość</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="uslugi">
+        <div class="container">
+            <div class="section-header gs-reveal">
+                <span class="mono-tag">// Nasza Oferta</span>
+                <h2>Zaawansowane<br>Usługi Przemysłowe</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card gs-reveal">
+                    <h3>Obróbka Metali</h3>
+                    <p>Precyzyjna obróbka CNC i cięcie mechaniczne dla wymagających projektów inżynieryjnych.</p>
+                </div>
+                <div class="service-card gs-reveal">
+                    <h3>Konstrukcje Stalowe</h3>
+                    <p>Projektowanie, prefabrykacja i montaż certyfikowanych konstrukcji (EN 1090).</p>
+                </div>
+                <div class="service-card gs-reveal">
+                    <h3>Rurociągi Przemysłowe</h3>
+                    <p>Instalacje dla sektora chemicznego, energetycznego i petrochemicznego.</p>
+                </div>
+                <div class="service-card gs-reveal">
+                    <h3>Zbiorniki Ciśnieniowe</h3>
+                    <p>Specjalistyczne zbiorniki dla przemysłu z pełną certyfikacją UDT/TÜV.</p>
+                </div>
+                <div class="service-card gs-reveal">
+                    <h3>Prefabrykacja Betonu</h3>
+                    <p>Zaawansowane elementy żelbetowe dla infrastruktury i budownictwa.</p>
+                </div>
+                <div class="service-card gs-reveal">
+                    <h3>Zbrojenia Budowlane</h3>
+                    <p>Cięcie, gięcie i spawanie zbrojeń do złożonych konstrukcji nośnych.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="certs" id="o-firmie">
+        <div class="container">
+            <div class="section-header gs-reveal" style="margin-bottom: 2rem;">
+                <span class="mono-tag" style="justify-content: center; display: flex;">// Gwarancja Jakości</span>
+                <h2>Certyfikowana Inżynieria</h2>
+                <p style="margin-top: 1rem; color: var(--color-silver); max-width: 600px; margin-inline: auto;">Działamy zgodnie z rygorystycznymi europejskimi normami, dostarczając bezkompromisową jakość dla sektorów offshore, energetyki i przemysłu ciężkiego.</p>
+            </div>
+            <div class="certs-container gs-reveal">
+                <div class="cert-item">EN ISO 3834</div>
+                <div class="cert-item">EN 1090</div>
+                <div class="cert-item">ŚWIADECTWO SPAWALNICZE</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="realizacje">
+        <div class="container">
+            <div class="section-header gs-reveal">
+                <span class="mono-tag">// Portfolio</span>
+                <h2>Wybrane Realizacje</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80" alt="CNC Machining" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4bffc64684d?auto=format&fit=crop&q=80'">
+                    <div class="project-info">
+                        <span>Obróbka Mechaniczna</span>
+                        <h3>Komponenty High-Tech</h3>
+                    </div>
+                </div>
+                <div class="project-card gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1535392432937-a27c36ec07b5?auto=format&fit=crop&q=80" alt="Steel Structure" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4bffc64684d?auto=format&fit=crop&q=80'">
+                    <div class="project-info">
+                        <span>Konstrukcje</span>
+                        <h3>Hala Przemysłowa DE</h3>
+                    </div>
+                </div>
+                <div class="project-card gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1565692683108-c89e472648fb?auto=format&fit=crop&q=80" alt="Piping" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4bffc64684d?auto=format&fit=crop&q=80'">
+                    <div class="project-info">
+                        <span>Rurociągi</span>
+                        <h3>Instalacja Petrochemiczna</h3>
+                    </div>
+                </div>
+                <div class="project-card gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&q=80" alt="Welding" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1504917595217-d4bffc64684d?auto=format&fit=crop&q=80'">
+                    <div class="project-info">
+                        <span>Zbiorniki Ciśnieniowe</span>
+                        <h3>Spawanie Specjalistyczne</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="cta-section">
+        <div class="container gs-reveal">
+            <h2>Gotowy na bezkompromisową jakość?</h2>
+            <p>Skontaktuj się z naszym zespołem inżynierów. Przygotujemy precyzyjną wycenę dla Twojego projektu.</p>
+            <a href="mailto:kontakt@bud-invest.com" class="btn">Zapytaj o wycenę</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="display: inline-block; margin-bottom: 2rem;">
+                        <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="0" y="35" font-family="'Orbitron', sans-serif" font-size="20" font-weight="900" fill="currentColor" letter-spacing="2">BUD INVEST</text>
+                            <text x="0" y="47" font-family="'Exo 2', sans-serif" font-size="10" fill="currentColor" letter-spacing="4" font-weight="600">STEEL</text>
+                        </svg>
+                    </a>
+                    <p style="max-width: 300px;">Międzynarodowa firma z 15+ letnim doświadczeniem. Kompleksowa realizacja projektów przemysłowych.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <p>ul. Dworcowa 12</p>
+                    <p>83-100 Tczew, Polska</p>
+                    <a href="tel:+48511641580" style="margin-top: 1rem; color: var(--color-red); font-family: var(--font-mono);">+48 511 641 580</a>
+                    <a href="mailto:kontakt@bud-invest.com" style="color: var(--color-red); font-family: var(--font-mono);">kontakt@bud-invest.com</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Sektory</h4>
+                    <p>Chemiczny & Petrochemiczny</p>
+                    <p>Energetyczny</p>
+                    <p>Stoczniowy & Offshore</p>
+                    <p>Farmaceutyczny</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Bud Invest Steel. Wszelkie prawa zastrzeżone.</span>
+                <span>INŻYNIERIA NAJWYŻSZEJ KLASY</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar bg on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(13, 13, 13, 0.95)';
+                nav.style.padding = '1rem 0';
+            } else {
+                nav.style.background = 'rgba(13, 13, 13, 0.85)';
+                nav.style.padding = '1.5rem 0';
+            }
+        });
+
+        // Hero Parallax
+        gsap.to('.hero-bg', {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // Reveal Animations
+        const revealElements = document.querySelectorAll('.gs-reveal');
+        
+        revealElements.forEach((el) => {
+            gsap.fromTo(el, 
+                { autoAlpha: 0, y: 50 },
+                { 
+                    autoAlpha: 1, 
+                    y: 0, 
+                    duration: 1, 
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+
+        // Staggered Cards
+        gsap.fromTo('.service-card', 
+            { autoAlpha: 0, y: 30 },
+            {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.services-grid',
+                    start: 'top 80%'
+                }
+            }
+        );
+
+        // Staggered Certs
+        gsap.fromTo('.cert-item', 
+            { autoAlpha: 0, scale: 0.9 },
+            {
+                autoAlpha: 1,
+                scale: 1,
+                duration: 0.6,
+                stagger: 0.2,
+                ease: 'back.out(1.7)',
+                scrollTrigger: {
+                    trigger: '.certs-container',
+                    start: 'top 85%'
+                }
+            }
+        );
+    </script>
+</body>
+</html>

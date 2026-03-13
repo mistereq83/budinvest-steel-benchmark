@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bud Invest Steel | Bezpieczeństwo i jakość. W każdym detalu.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --c-anthracite: #2D2D2D;
+            --c-orange: #FF6B00;
+            --c-light-grey: #EBEBEB;
+            --c-black: #111111;
+            
+            --f-heading: 'Barlow Condensed', sans-serif;
+            --f-body: 'Barlow', sans-serif;
+            --f-mono: 'Anonymous Pro', monospace;
+            
+            --radius-sm: 0.5rem;
+            --radius-md: 1rem;
+            --radius-lg: 1.5rem;
+            
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--f-body);
+            background-color: var(--c-light-grey);
+            color: var(--c-anthracite);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--f-heading);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--c-black);
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Global Noise */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            font-family: var(--f-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--c-orange);
+            color: var(--c-black);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--c-black);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn-primary:hover {
+            color: var(--c-light-grey);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--c-light-grey);
+            border: 2px solid var(--c-orange);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--c-orange);
+            color: var(--c-black);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 100;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .navbar.scrolled {
+            background-color: var(--c-black);
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--c-light-grey);
+            font-family: var(--f-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--c-orange);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--c-orange);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            color: var(--c-light-grey);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--c-black);
+            color: var(--c-light-grey);
+            overflow: hidden;
+            padding-top: 5rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 0;
+            filter: grayscale(100%) contrast(1.2);
+            mix-blend-mode: multiply;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,107,0,0.03) 10px, rgba(255,107,0,0.03) 20px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: var(--f-mono);
+            background-color: var(--c-orange);
+            color: var(--c-black);
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            color: var(--c-light-grey);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 span {
+            color: var(--c-orange);
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        
+        .hero-stats-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--c-orange);
+            color: var(--c-black);
+            padding: 1rem 0;
+            z-index: 2;
+            font-family: var(--f-mono);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .hero-stats-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Sections General */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--f-mono);
+            color: var(--c-orange);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--c-black);
+        }
+        
+        .dark-section {
+            background-color: var(--c-black);
+            color: var(--c-light-grey);
+        }
+        
+        .dark-section .section-title {
+            color: var(--c-light-grey);
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.25rem;
+            color: var(--c-anthracite);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--c-orange);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-family: var(--f-heading);
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--c-black);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: var(--f-mono);
+            font-size: 0.875rem;
+            color: var(--c-anthracite);
+            text-transform: uppercase;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/5;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%);
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 4px solid var(--c-orange);
+            border-radius: var(--radius-lg);
+            z-index: 1;
+            pointer-events: none;
+            transform: scale(0.95);
+            opacity: 0.5;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--c-black);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
+            group: hover;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--c-orange);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            background-color: #1a1a1a;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            color: var(--c-orange);
+            margin-bottom: 2rem;
+            font-family: var(--f-mono);
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            color: var(--c-light-grey);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #999;
+            margin-bottom: 0;
+        }
+
+        /* Certificates */
+        .certificates {
+            background-color: var(--c-orange);
+            padding: 6rem 0;
+            color: var(--c-black);
+        }
+
+        .cert-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+        
+        .cert-header h2 {
+            font-size: 3.5rem;
+            margin-bottom: 0;
+        }
+
+        .cert-list {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cert-item {
+            background-color: var(--c-black);
+            color: var(--c-light-grey);
+            padding: 1.5rem 2.5rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--f-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .cert-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .cert-item::before {
+            content: '✓';
+            color: var(--c-orange);
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--c-anthracite);
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: grayscale(40%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(17,17,17,0.9) 0%, transparent 50%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h4 {
+            color: var(--c-light-grey);
+            font-size: 1.5rem;
+            margin: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-overlay h4 {
+            transform: translateY(0);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--c-anthracite);
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(45deg, var(--c-black) 0, var(--c-black) 2px, transparent 2px, transparent 8px);
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            color: var(--c-light-grey);
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--c-black);
+            color: #888;
+            padding: 6rem 0 2rem;
+            border-top: 4px solid var(--c-orange);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            color: var(--c-light-grey);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col p, .footer-col a {
+            margin-bottom: 0.75rem;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover {
+            color: var(--c-orange);
+        }
+        
+        .footer-logo {
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo svg {
+            color: var(--c-light-grey);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--f-mono);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .cert-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            .gallery-item:nth-child(1) {
+                grid-column: span 1;
+            }
+            .gallery-item {
+                height: 300px;
+            }
+            .hero-stats-inner {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SVG Filter for Noise -->
+    <svg style="display:none;">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+    </svg>
+    <div class="noise-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="35" font-family="var(--f-heading)" font-size="24" font-weight="800" fill="#EBEBEB" letter-spacing="1">BUD INVEST</text>
+                    <text x="0" y="47" font-family="var(--f-mono)" font-size="10" fill="#FF6B00" letter-spacing="4">STEEL</text>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="#o-firmie">O firmie</a>
+                <a href="#uslugi">Usługi</a>
+                <a href="#realizacje">Realizacje</a>
+                <a href="#kontakt">Kontakt</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80" alt="Construction Site" class="hero-bg" onerror="this.src='https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80'">
+        <div class="hero-pattern"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge gs-reveal">15+ Lat Doświadczenia na Rynku</div>
+                <h1 class="gs-reveal">Bezpieczeństwo i jakość. <br><span>W każdym detalu.</span></h1>
+                <p class="gs-reveal">Kompleksowa realizacja projektów konstrukcji stalowych, obróbka metali i prefabrykacja elementów betonowych dla przemysłu ciężkiego.</p>
+                <div class="gs-reveal" style="margin-top: 2rem;">
+                    <a href="#kontakt" class="btn btn-primary">Zapytaj o wycenę</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats-bar">
+            <div class="container hero-stats-inner">
+                <span>[ STATUS: OPERATIONAL ]</span>
+                <span>[ ZASIĘG: POLSKA & NIEMCY ]</span>
+                <span>[ CERTYFIKACJA: EN 1090, ISO 3834 ]</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- O firmie -->
+    <section id="o-firmie" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text gs-fade-up">
+                    <span class="section-subtitle">01 // Stabilna Marka</span>
+                    <h2 class="section-title">Doświadczenie, które buduje zaufanie.</h2>
+                    <p>Jesteśmy międzynarodową firmą działającą w sektorze przemysłu ciężkiego, specjalizującą się w konstrukcjach stalowych, rurociągach i obróbce metali. Bezpieczeństwo jest wpisane w nasze DNA.</p>
+                    <p>Realizujemy najbardziej wymagające projekty dla branży chemicznej, petrochemicznej, energetycznej oraz offshore. Nasze procesy podlegają rygorystycznym normom jakościowym.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item gs-fade-up" style="transition-delay: 0.1s">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Lat Doświadczenia</div>
+                        </div>
+                        <div class="stat-item gs-fade-up" style="transition-delay: 0.2s">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Główne Rynki (PL/DE)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image gs-fade-up" style="transition-delay: 0.3s">
+                    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80" alt="Industrial Safety" onerror="this.src='https://images.unsplash.com/photo-1581092918056-0c4c3cb37150?auto=format&fit=crop&q=80'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usługi -->
+    <section id="uslugi" class="dark-section">
+        <div class="container">
+            <div class="section-header text-center gs-fade-up">
+                <span class="section-subtitle">02 // Nasze Kompetencje</span>
+                <h2 class="section-title">Kompleksowe Usługi Przemysłowe</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card gs-stagger-card">
+                    <div class="service-icon">01</div>
+                    <h3>Obróbka metali</h3>
+                    <p>Precyzyjna obróbka skrawaniem, cięcie, gięcie i formowanie elementów stalowych z wykorzystaniem nowoczesnego parku maszynowego.</p>
+                </div>
+                <div class="service-card gs-stagger-card">
+                    <div class="service-icon">02</div>
+                    <h3>Konstrukcje stalowe</h3>
+                    <p>Projektowanie, prefabrykacja i montaż ciężkich konstrukcji nośnych dla hal przemysłowych i obiektów inżynieryjnych.</p>
+                </div>
+                <div class="service-card gs-stagger-card">
+                    <div class="service-icon">03</div>
+                    <h3>Rurociągi przemysłowe</h3>
+                    <p>Spawanie i montaż rurociągów przesyłowych dla przemysłu chemicznego i petrochemicznego zgodnie z najwyższymi normami.</p>
+                </div>
+                <div class="service-card gs-stagger-card">
+                    <div class="service-icon">04</div>
+                    <h3>Zbiorniki ciśnieniowe</h3>
+                    <p>Produkcja atestowanych zbiorników i aparatury procesowej pracującej w warunkach wysokiego ciśnienia.</p>
+                </div>
+                <div class="service-card gs-stagger-card">
+                    <div class="service-icon">05</div>
+                    <h3>Prefabrykacja betonu</h3>
+                    <p>Wytwarzanie zbrojonych elementów betonowych dla budownictwa przemysłowego i infrastrukturalnego.</p>
+                </div>
+                <div class="service-card gs-stagger-card">
+                    <div class="service-icon">06</div>
+                    <h3>Zbrojenia budowlane</h3>
+                    <p>Kompleksowe przygotowanie i montaż stali zbrojeniowej na placach budowy wielkogabarytowych inwestycji.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates -->
+    <section class="certificates">
+        <div class="container">
+            <div class="cert-wrap">
+                <div class="cert-header gs-fade-up">
+                    <span class="section-subtitle" style="color: var(--c-black);">03 // Standardy</span>
+                    <h2>Certyfikowana Jakość</h2>
+                </div>
+                <div class="cert-list">
+                    <div class="cert-item gs-fade-up" style="transition-delay: 0.1s">EN ISO 3834</div>
+                    <div class="cert-item gs-fade-up" style="transition-delay: 0.2s">EN 1090</div>
+                    <div class="cert-item gs-fade-up" style="transition-delay: 0.3s">Świadectwo Spawalnicze</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Realizacje Gallery -->
+    <section id="realizacje">
+        <div class="container">
+            <div class="section-header gs-fade-up">
+                <span class="section-subtitle">04 // Projekty</span>
+                <h2 class="section-title">Park Maszynowy i Realizacje</h2>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item gs-fade-up">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3cb37150?auto=format&fit=crop&q=80" alt="Welding Process">
+                    <div class="gallery-overlay">
+                        <h4>Precyzyjne Spawanie Przemysłowe</h4>
+                    </div>
+                </div>
+                <div class="gallery-item gs-fade-up" style="transition-delay: 0.1s">
+                    <img src="https://images.unsplash.com/photo-1508344928928-7137b29de216?auto=format&fit=crop&q=80" alt="Heavy Machinery">
+                    <div class="gallery-overlay">
+                        <h4>Montaż Konstrukcji</h4>
+                    </div>
+                </div>
+                <div class="gallery-item gs-fade-up" style="transition-delay: 0.2s">
+                    <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&q=80" alt="Steel Structure">
+                    <div class="gallery-overlay">
+                        <h4>Prefabrykacja</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="kontakt" class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="container">
+            <div class="cta-content gs-fade-up">
+                <span class="section-subtitle">Rozpocznijmy współpracę</span>
+                <h2>Gotowy na realizację Twojego projektu?</h2>
+                <a href="mailto:kontakt@bud-invest.com" class="btn btn-primary">Skontaktuj się z nami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <svg width="150" height="47" viewBox="0 0 150 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="0" y="35" font-family="var(--f-heading)" font-size="24" font-weight="800" fill="#EBEBEB" letter-spacing="1">BUD INVEST</text>
+                            <text x="0" y="47" font-family="var(--f-mono)" font-size="10" fill="#FF6B00" letter-spacing="4">STEEL</text>
+                        </svg>
+                    </div>
+                    <p>Międzynarodowa firma z doświadczeniem. Kompleksowa realizacja projektów konstrukcji stalowych.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Nawigacja</h4>
+                    <a href="#o-firmie">O firmie</a>
+                    <a href="#uslugi">Usługi</a>
+                    <a href="#realizacje">Realizacje</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Sektory</h4>
+                    <a href="#">Petrochemia</a>
+                    <a href="#">Energetyka</a>
+                    <a href="#">Offshore</a>
+                    <a href="#">Stocznie</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <p>ul. Dworcowa 12<br>83-100 Tczew</p>
+                    <p>tel. +48 511 641 580</p>
+                    <a href="mailto:kontakt@bud-invest.com" style="color: var(--c-orange);">kontakt@bud-invest.com</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bud Invest Steel. Wszelkie prawa zastrzeżone.</p>
+                <p>Designed with safety in mind.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Navbar background on scroll
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+
+            // Hero Animation
+            const heroTl = gsap.timeline();
+            heroTl.fromTo(".hero-bg", 
+                { scale: 1.1, opacity: 0 },
+                { scale: 1, opacity: 0.4, duration: 2, ease: "power3.out" }
+            )
+            .fromTo(".hero .gs-reveal",
+                { y: 50, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" },
+                "-=1.5"
+            );
+
+            // Hero Parallax
+            gsap.to(".hero-bg", {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                } 
+            });
+
+            // Fade Up Elements
+            gsap.utils.toArray('.gs-fade-up').forEach(element => {
+                gsap.fromTo(element,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // Stagger Cards
+            gsap.fromTo('.gs-stagger-card',
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: ".services-grid",
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+    </script>
+</body>
+</html>
