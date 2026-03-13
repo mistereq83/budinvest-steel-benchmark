@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bud-Invest Group — Wybierz dział</title>
+    <meta name="description" content="Bud-Invest Group — parki handlowe, osiedla mieszkaniowe, konstrukcje stalowe. Wybierz dział.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --charcoal: #1a1a1e;
+            --gunmetal: #2a2a30;
+            --steel-dark: #35353d;
+            --steel-mid: #5a5a66;
+            --steel-light: #8a8a96;
+            --silver: #b8b8c4;
+            --off-white: #e8e6e3;
+            --gold: #c8a55a;
+            --gold-dim: #9a7d3a;
+            --gold-glow: rgba(200, 165, 90, 0.15);
+            --blue-steel: #5a7a9a;
+            --blue-glow: rgba(90, 122, 154, 0.15);
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Barlow', sans-serif;
+            background: var(--charcoal);
+            color: var(--off-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ── Noise overlay ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.035;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 256px 256px;
+        }
+
+        /* ── Ambient gradient ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(ellipse 80% 60% at 30% 20%, rgba(90, 122, 154, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 70% 80%, rgba(200, 165, 90, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 120% 80% at 50% 50%, rgba(26, 26, 30, 0) 40%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+        }
+
+        /* ── Header / Logo ── */
+        .header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo-parent {
+            width: clamp(200px, 28vw, 340px);
+            height: auto;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1);
+            opacity: 0;
+        }
+
+        .subtitle {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 300;
+            font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--steel-light);
+            opacity: 0;
+        }
+
+        /* ── Divider line ── */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+            margin: 2.5rem auto;
+            opacity: 0;
+        }
+
+        /* ── Panels container ── */
+        .panels {
+            display: flex;
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 1100px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        /* ── Individual panel ── */
+        .panel {
+            flex: 1;
+            max-width: 480px;
+            min-height: 420px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3.5rem 2.5rem;
+            text-decoration: none;
+            color: var(--off-white);
+            border: 1px solid rgba(138, 138, 150, 0.1);
+            border-radius: 2px;
+            background: linear-gradient(165deg, rgba(42, 42, 48, 0.6) 0%, rgba(26, 26, 30, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            overflow: hidden;
+            opacity: 0;
+            transition: border-color 0.6s ease, background 0.6s ease;
+        }
+
+        /* Panel inner glow on hover */
+        .panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            border-radius: 2px;
+        }
+
+        .panel--group::before {
+            background: radial-gradient(ellipse at center, var(--gold-glow) 0%, transparent 70%);
+        }
+
+        .panel--steel::before {
+            background: radial-gradient(ellipse at center, var(--blue-glow) 0%, transparent 70%);
+        }
+
+        .panel:hover::before {
+            opacity: 1;
+        }
+
+        /* Border glow lines */
+        .panel::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .panel--group::after {
+            border: 1px solid rgba(200, 165, 90, 0.25);
+            box-shadow: inset 0 0 40px rgba(200, 165, 90, 0.05), 0 0 30px rgba(200, 165, 90, 0.05);
+        }
+
+        .panel--steel::after {
+            border: 1px solid rgba(90, 122, 154, 0.3);
+            box-shadow: inset 0 0 40px rgba(90, 122, 154, 0.05), 0 0 30px rgba(90, 122, 154, 0.05);
+        }
+
+        .panel:hover::after {
+            opacity: 1;
+        }
+
+        .panel:hover {
+            transform: translateY(-4px);
+            border-color: transparent;
+        }
+
+        .panel--group:hover {
+            background: linear-gradient(165deg, rgba(50, 46, 38, 0.7) 0%, rgba(26, 26, 30, 0.9) 100%);
+        }
+
+        .panel--steel:hover {
+            background: linear-gradient(165deg, rgba(38, 44, 52, 0.7) 0%, rgba(26, 26, 30, 0.9) 100%);
+        }
+
+        /* ── Icon area ── */
+        .panel__icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 2rem;
+            position: relative;
+            opacity: 0.7;
+            transition: opacity 0.4s ease;
+        }
+
+        .panel:hover .panel__icon {
+            opacity: 1;
+        }
+
+        .panel__icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ── Division logo ── */
+        .panel__logo {
+            height: 32px;
+            width: auto;
+            margin-bottom: 1.2rem;
+            filter: brightness(0) invert(0.85);
+            transition: filter 0.4s ease;
+            display: none;
+        }
+
+        .panel:hover .panel__logo {
+            filter: brightness(0) invert(1);
+        }
+
+        /* ── Division name ── */
+        .panel__name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            transition: color 0.4s ease;
+            position: relative;
+        }
+
+        .panel--group .panel__name {
+            color: var(--off-white);
+        }
+
+        .panel--steel .panel__name {
+            color: var(--off-white);
+        }
+
+        .panel--group:hover .panel__name {
+            color: var(--gold);
+        }
+
+        .panel--steel:hover .panel__name {
+            color: var(--blue-steel);
+        }
+
+        /* ── Accent line under name ── */
+        .panel__accent {
+            width: 40px;
+            height: 1px;
+            margin-bottom: 1.5rem;
+            transition: width 0.5s ease, background 0.4s ease;
+        }
+
+        .panel--group .panel__accent {
+            background: var(--gold-dim);
+        }
+
+        .panel--steel .panel__accent {
+            background: var(--blue-steel);
+        }
+
+        .panel:hover .panel__accent {
+            width: 80px;
+        }
+
+        /* ── Tagline ── */
+        .panel__tagline {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            font-size: clamp(0.85rem, 1.1vw, 1rem);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--steel-light);
+            margin-bottom: 2.5rem;
+            transition: color 0.4s ease;
+        }
+
+        .panel:hover .panel__tagline {
+            color: var(--silver);
+        }
+
+        /* ── CTA arrow ── */
+        .panel__cta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 400;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--steel-mid);
+            transition: color 0.4s ease, gap 0.4s ease;
+        }
+
+        .panel:hover .panel__cta {
+            gap: 1rem;
+        }
+
+        .panel--group:hover .panel__cta {
+            color: var(--gold);
+        }
+
+        .panel--steel:hover .panel__cta {
+            color: var(--blue-steel);
+        }
+
+        .panel__cta svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.4s ease;
+        }
+
+        .panel:hover .panel__cta svg {
+            transform: translateX(4px);
+        }
+
+        /* ── Vertical separator between panels ── */
+        .panels__separator {
+            width: 1px;
+            align-self: stretch;
+            background: linear-gradient(180deg, transparent 10%, rgba(138, 138, 150, 0.15) 50%, transparent 90%);
+            opacity: 0;
+            flex-shrink: 0;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem 2rem 1.8rem;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            color: var(--steel-mid);
+            opacity: 0;
+        }
+
+        .footer__line {
+            width: 40px;
+            height: 1px;
+            background: rgba(138, 138, 150, 0.15);
+            margin: 0 auto 1.2rem;
+        }
+
+        .footer span {
+            display: inline-block;
+            margin: 0 0.8rem;
+        }
+
+        .footer a {
+            color: var(--steel-mid);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--silver);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 2.5rem 1.5rem;
+                justify-content: flex-start;
+                padding-top: 15vh;
+            }
+
+            .panels {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .panels__separator {
+                width: 60px;
+                height: 1px;
+                background: linear-gradient(90deg, transparent 10%, rgba(138, 138, 150, 0.15) 50%, transparent 90%);
+            }
+
+            .panel {
+                max-width: 100%;
+                min-height: 300px;
+                padding: 2.5rem 2rem;
+            }
+
+            .panel__name {
+                font-size: 2.2rem;
+            }
+
+            .divider {
+                margin: 1.8rem auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding-top: 10vh;
+            }
+
+            .panel {
+                min-height: 260px;
+                padding: 2rem 1.5rem;
+            }
+
+            .panel__icon {
+                width: 44px;
+                height: 44px;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* ── Smooth transitions ── */
+        .panel {
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
+                        border-color 0.6s ease, 
+                        background 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <img src="https://bud-invest.com/wp-content/uploads/2024/09/BUD_INVEST_Group_@4x-invert.png" 
+                 alt="Bud-Invest Group" 
+                 class="logo-parent">
+            <p class="subtitle">Wybierz dział</p>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- Panels -->
+        <div class="panels">
+            <!-- GROUP panel -->
+            <a href="https://bud-invest.com/group/" class="panel panel--group">
+                <div class="panel__icon">
+                    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="22" width="20" height="30" rx="1" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+                        <rect x="32" y="14" width="20" height="38" rx="1" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+                        <rect x="18" y="4" width="20" height="48" rx="1" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
+                        <line x1="24" y1="12" x2="30" y2="12" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="24" y1="18" x2="30" y2="18" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="24" y1="24" x2="30" y2="24" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="24" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="24" y1="36" x2="30" y2="36" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                    </svg>
+                </div>
+                <h2 class="panel__name">Group</h2>
+                <div class="panel__accent"></div>
+                <p class="panel__tagline">Parki handlowe & osiedla</p>
+                <div class="panel__cta">
+                    <span>Przejdź</span>
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="3" y1="10" x2="17" y2="10"/>
+                        <polyline points="12,5 17,10 12,15"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Separator -->
+            <div class="panels__separator"></div>
+
+            <!-- STEEL panel -->
+            <a href="https://budinvest-steel.com" class="panel panel--steel">
+                <div class="panel__icon">
+                    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 48 L28 4 L52 48 Z" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7"/>
+                        <line x1="16" y1="36" x2="40" y2="36" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="20" y1="28" x2="36" y2="28" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+                        <line x1="28" y1="4" x2="28" y2="48" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+                        <circle cx="28" cy="20" r="2" stroke="currentColor" stroke-width="1" opacity="0.5" fill="none"/>
+                    </svg>
+                </div>
+                <h2 class="panel__name">Steel</h2>
+                <div class="panel__accent"></div>
+                <p class="panel__tagline">Konstrukcje stalowe</p>
+                <div class="panel__cta">
+                    <span>Przejdź</span>
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="3" y1="10" x2="17" y2="10"/>
+                        <polyline points="12,5 17,10 12,15"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__line"></div>
+        <span>ul. Dworcowa 12, 83-100 Tczew</span>
+        <span>·</span>
+        <a href="tel:+48511641580">+48 511 641 580</a>
+    </footer>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+            // Logo fade in + drift down
+            tl.fromTo('.logo-parent', 
+                { opacity: 0, y: -20 }, 
+                { opacity: 1, y: 0, duration: 1.2 }
+            );
+
+            // Subtitle
+            tl.fromTo('.subtitle', 
+                { opacity: 0, y: 10 }, 
+                { opacity: 1, y: 0, duration: 0.8 }, 
+                '-=0.5'
+            );
+
+            // Divider
+            tl.fromTo('.divider', 
+                { opacity: 0, scaleX: 0 }, 
+                { opacity: 1, scaleX: 1, duration: 0.8 }, 
+                '-=0.3'
+            );
+
+            // Panels slide in from sides
+            tl.fromTo('.panel--group', 
+                { opacity: 0, x: -60 }, 
+                { opacity: 1, x: 0, duration: 1 }, 
+                '-=0.4'
+            );
+
+            tl.fromTo('.panel--steel', 
+                { opacity: 0, x: 60 }, 
+                { opacity: 1, x: 0, duration: 1 }, 
+                '-=0.8'
+            );
+
+            // Separator
+            tl.fromTo('.panels__separator', 
+                { opacity: 0, scaleY: 0 }, 
+                { opacity: 1, scaleY: 1, duration: 0.6 }, 
+                '-=0.6'
+            );
+
+            // Footer
+            tl.fromTo('.footer', 
+                { opacity: 0, y: 15 }, 
+                { opacity: 1, y: 0, duration: 0.8 }, 
+                '-=0.3'
+            );
+
+            // Magnetic hover effect on panels
+            document.querySelectorAll('.panel').forEach(panel => {
+                panel.addEventListener('mousemove', (e) => {
+                    const rect = panel.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / centerY * -2;
+                    const rotateY = (x - centerX) / centerX * 2;
+
+                    gsap.to(panel, {
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        transformPerspective: 1000,
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
+                });
+
+                panel.addEventListener('mouseleave', () => {
+                    gsap.to(panel, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        y: 0,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
