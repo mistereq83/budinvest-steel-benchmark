@@ -703,7 +703,7 @@
             .services-hub-grid { grid-template-columns: 1fr !important; }
             
             /* Inline grid overrides for service subpages */
-            [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+            [style*="grid-template-columns: 1fr 1fr"]:not(.about-stats-grid):not(.cert-intro-grid):not(.cert-why-grid) { grid-template-columns: 1fr !important; }
             [style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr !important; }
             [style*="grid-template-columns: repeat(4"] { grid-template-columns: 1fr 1fr !important; }
             
