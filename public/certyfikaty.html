@@ -1364,16 +1364,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 
     <!-- 2. Intro jako 2 karty -->
-    <section style="padding: 5rem 5%;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto;">
-            <div class="gsap-fade-up" style="background: rgba(67, 97, 238, 0.05); border: 1px solid rgba(67, 97, 238, 0.15); border-radius: 12px; padding: 2.5rem;">
-                <span style="font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: var(--arc-blue); display: block; margin-bottom: 0.5rem;">EN 1090</span>
+    <section class="cert-intro-section" style="padding: 5rem 5%;">
+        <div class="cert-intro-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            <div class="gsap-fade-up cert-intro-card" style="background: rgba(67, 97, 238, 0.05); border: 1px solid rgba(67, 97, 238, 0.15); border-radius: 12px; padding: 2.5rem;">
+                <span class="cert-intro-number" style="font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: var(--arc-blue); display: block; margin-bottom: 0.5rem;">EN 1090</span>
                 <div class="service-accent-line"></div>
                 <h4 style="color: var(--text-light); margin-bottom: 0.75rem;">Konstrukcje stalowe</h4>
                 <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.7;">Certyfikat uprawniający do znakowania CE elementów nośnych. Zgodność z Eurokod — klasy EXC2 i EXC3.</p>
             </div>
-            <div class="gsap-fade-up" style="background: rgba(67, 97, 238, 0.05); border: 1px solid rgba(67, 97, 238, 0.15); border-radius: 12px; padding: 2.5rem;">
-                <span style="font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: var(--arc-blue); display: block; margin-bottom: 0.5rem;">ISO 3834</span>
+            <div class="gsap-fade-up cert-intro-card" style="background: rgba(67, 97, 238, 0.05); border: 1px solid rgba(67, 97, 238, 0.15); border-radius: 12px; padding: 2.5rem;">
+                <span class="cert-intro-number" style="font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: var(--arc-blue); display: block; margin-bottom: 0.5rem;">ISO 3834</span>
                 <div class="service-accent-line"></div>
                 <h4 style="color: var(--text-light); margin-bottom: 0.75rem;">Jakość spawania</h4>
                 <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.7;">Pełne wymagania jakościowe dla spawania metali. Najwyższy poziom kontroli procesów na każdym etapie produkcji.</p>
@@ -1444,7 +1444,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .cert-lightbox .close-btn { position: absolute; top: 2rem; right: 2rem; color: white; font-size: 2rem; cursor: pointer; font-family: var(--font-head); }
     
     @media (max-width: 768px) {
-        .cert-gallery { grid-template-columns: 1fr; }
+        .cert-gallery { grid-template-columns: repeat(3, 1fr) !important; gap: 0.75rem !important; }
+        .cert-thumb { aspect-ratio: 1 / 1.3; border-radius: 0.5rem; }
+        .cert-section-title { font-size: 1.3rem !important; }
+        .cert-section-desc { font-size: 0.85rem !important; margin-bottom: 1rem !important; }
+        .cert-intro-section { padding: 2.5rem 5% !important; }
+        .cert-intro-grid { gap: 1rem !important; }
+        .cert-intro-card { padding: 1.5rem !important; border-radius: 10px !important; }
+        .cert-intro-number { font-size: 2rem !important; }
+        .cert-intro-card h4 { font-size: 0.9rem !important; }
+        .cert-intro-card p { font-size: 0.82rem !important; line-height: 1.5 !important; }
+        .cert-why-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+        .cert-why-grid > div { padding: 1.2rem 0 !important; }
+        .cert-why-grid h4 { font-size: 0.9rem !important; }
+        .cert-why-grid p { font-size: 0.8rem !important; }
     }
     </style>
 
@@ -1509,7 +1522,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <h2>Dlaczego certyfikaty mają <span class="text-accent">znaczenie</span>?</h2>
                 <p style="color: var(--text-gray); max-width: 600px; margin: 1rem auto 0; line-height: 1.7;">Certyfikaty to gwarancja bezpieczeństwa i trwałości konstrukcji. Nasi klienci wymagają pełnej dokumentacji jakościowej — dostarczamy ją na każdym etapie.</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+            <div class="cert-why-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
                 <div class="gsap-fade-up" style="padding: 2rem 0; border-top: 2px solid var(--arc-blue);">
                     <h4 style="color: var(--text-light); margin-bottom: 0.5rem;">Dokumentacja WPS/WPQR</h4>
                     <p style="color: var(--text-gray); font-size: 0.9rem;">Pełna dokumentacja spawalnicza dla każdego projektu.</p>
