@@ -682,6 +682,9 @@
             .about-grid { grid-template-columns: 1fr; }
             .cert-section .about-grid { direction: ltr; }
             .projects-grid { grid-template-columns: 1fr; }
+            .about-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+            .about-stat-item { padding: 1rem !important; }
+            .about-stat-number { font-size: 1.8rem !important; }
             .services-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
             .service-card { padding: 1.5rem 1.2rem !important; border-radius: 1rem !important; }
             .service-card h4 { font-size: 0.9rem !important; margin-bottom: 0.5rem !important; }
@@ -1404,21 +1407,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <p style="color: var(--text-gray); line-height: 1.8; font-size: 1.05rem;">Obsługujemy chemię, petrochemię, energetykę, offshore i branżę stoczniową. W Polsce i Niemczech.</p>
                     <a href="/o-nas" style="color: var(--arc-blue); font-family: var(--font-head); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; display: inline-block; margin-top: 1rem;">Poznaj nas bliżej →</a>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                    <div style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
-                        <div style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">15+</div>
+                <div class="about-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="about-stat-item" style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
+                        <div class="about-stat-number" style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">15+</div>
                         <span style="font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px;">lat na rynku</span>
                     </div>
-                    <div style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
-                        <div style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">100+</div>
+                    <div class="about-stat-item" style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
+                        <div class="about-stat-number" style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">100+</div>
                         <span style="font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px;">projektów rocznie</span>
                     </div>
-                    <div style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
-                        <div style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">2</div>
+                    <div class="about-stat-item" style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
+                        <div class="about-stat-number" style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">2</div>
                         <span style="font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px;">rynki PL / DE</span>
                     </div>
-                    <div style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
-                        <div style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">3</div>
+                    <div class="about-stat-item" style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
+                        <div class="about-stat-number" style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">3</div>
                         <span style="font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px;">certyfikaty jakości</span>
                     </div>
                 </div>
