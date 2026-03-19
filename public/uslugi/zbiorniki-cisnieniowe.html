@@ -775,6 +775,12 @@
                 filter: grayscale(30%) contrast(110%);
             }
             
+            /* Fix: Realizacje overlay always visible on mobile */
+            .project-overlay {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            
             /* Fix 16: Process cards padding on mobile */
             [style*="padding: 2.5rem 2rem"] {
                 padding: 1.5rem 1.25rem !important;
@@ -1467,33 +1473,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </section>
 
-    <section class="other-services">
-        <div class="section-header gs-reveal text-center" style="text-align: center;">
+    <section class="other-services" style="padding: 6rem 5%;">
+        <div class="section-header" style="text-align: center;">
             <span class="mono-text">Oferta</span>
             <h2>Inne usługi</h2>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 5%;">
-            <a href="/uslugi/konstrukcje-stalowe" class="gsap-fade-up" style="display: block; text-decoration: none; padding: 2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;">
-                <span class="mono-text">01</span>
-                <h4 style="color: var(--text-light); margin: 0.5rem 0;">Konstrukcje Stalowe</h4>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Hale, podesty, estakady, schody.</p>
+        <div class="services-hub-grid" style="max-width: 1200px; margin: 0 auto;">
+            <a href="/uslugi/konstrukcje-stalowe" class="service-large-card gsap-fade-up" style="min-height: 220px;">
+                <div class="service-bg" style="background-image: url('/images/realizacje/konstrukcje-stalowe.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <div class="service-accent-line"></div>
+                    <h3>Konstrukcje stalowe</h3>
+                    <p style="margin-bottom: 0;">Projektowanie i montaż</p>
+                </div>
             </a>
-            <a href="/uslugi/rurociagi-przemyslowe" class="gsap-fade-up" style="display: block; text-decoration: none; padding: 2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;">
-                <span class="mono-text">02</span>
-                <h4 style="color: var(--text-light); margin: 0.5rem 0;">Rurociągi Przemysłowe</h4>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Systemy dla chemii, petrochemii, energetyki.</p>
+            <a href="/uslugi/rurociagi-przemyslowe" class="service-large-card gsap-fade-up" style="min-height: 220px;">
+                <div class="service-bg" style="background-image: url('/images/realizacje/realizacja-25.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <div class="service-accent-line"></div>
+                    <h3>Rurociągi przemysłowe</h3>
+                    <p style="margin-bottom: 0;">Systemy dla przemysłu</p>
+                </div>
             </a>
-            <a href="/uslugi/obrobka-metali" class="gsap-fade-up" style="display: block; text-decoration: none; padding: 2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;">
-                <span class="mono-text">03</span>
-                <h4 style="color: var(--text-light); margin: 0.5rem 0;">Obróbka Metali</h4>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Cięcie, gięcie, spawanie MIG/MAG/TIG.</p>
+            <a href="/uslugi/obrobka-metali" class="service-large-card gsap-fade-up" style="min-height: 220px;">
+                <div class="service-bg" style="background-image: url('/images/realizacje/realizacja-8.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <div class="service-accent-line"></div>
+                    <h3>Obróbka metali</h3>
+                    <p style="margin-bottom: 0;">Cięcie, gięcie, spawanie</p>
+                </div>
             </a>
         </div>
     </section>
 
     <section class="cta-section gs-reveal">
         <span class="mono-text">Rozpocznijmy współpracę</span>
-        <h2>Masz projekt do wyceny?</h2>
+        <h2>Porozmawiajmy o Twoim projekcie</h2>
         <p style="max-width: 600px; margin: 0 auto 2.5rem;">Wyślij specyfikację techniczną — odpowiemy z wyceną w 48h.</p>
         <a href="/kontakt" class="btn">Wyceń swój projekt</a>
     </section>

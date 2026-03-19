@@ -775,6 +775,12 @@
                 filter: grayscale(30%) contrast(110%);
             }
             
+            /* Fix: Realizacje overlay always visible on mobile */
+            .project-overlay {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            
             /* Fix 16: Process cards padding on mobile */
             [style*="padding: 2.5rem 2rem"] {
                 padding: 1.5rem 1.25rem !important;
@@ -1417,7 +1423,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div style="max-width: 1200px; margin: 0 auto;">
             <!-- Zdjęcie full-width z overlay -->
             <div class="gsap-fade-up" style="position: relative; border-radius: 1.5rem; overflow: hidden; margin-bottom: 4rem; max-height: 400px;">
-                <img src="/images/realizacje/realizacja-3.jpg" alt="Kompleks przemysłowy BUD-INVEST o zmierzchu" style="width: 100%; height: 400px; object-fit: cover; display: block; filter: brightness(0.7);" loading="lazy">
+                <img src="/images/realizacje/realizacja-3.jpg" alt="Kompleks przemysłowy BUD-INVEST o zmierzchu" style="width: 100%; height: 400px; object-fit: cover; display: block; filter: brightness(0.85);" loading="lazy">
                 <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem 3rem; background: linear-gradient(to top, rgba(21,21,21,0.95), transparent);">
                     <span class="mono-text">O firmie</span>
                     <h2 style="margin-bottom: 0;">Jeden wykonawca. <span class="text-accent">Cały projekt.</span></h2>
@@ -1574,32 +1580,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </section>
 
-    <!-- 6. Liczby Section -->
-    <section class="stats-bar">
-        <div class="stats-grid">
-            <div class="gsap-stagger-stat">
-                <div class="stat-number">15+</div>
-                <span class="mono-text">Lat na rynku</span>
-            </div>
-            <div class="gsap-stagger-stat">
-                <div class="stat-number">100+</div>
-                <span class="mono-text">Projektów rocznie</span>
-            </div>
-            <div class="gsap-stagger-stat">
-                <div class="stat-number">2</div>
-                <span class="mono-text">Kluczowe rynki (PL/DE)</span>
-            </div>
-            <div class="gsap-stagger-stat">
-                <div class="stat-number">3</div>
-                <span class="mono-text">Standardy jakościowe</span>
-            </div>
-        </div>
-    </section>
-
     <!-- 7. CTA Section -->
     <section class="cta-section">
         <div class="gsap-fade-up">
-            <h2>Masz projekt do wyceny?</h2>
+            <span class="mono-text">Współpraca</span>
+            <h2>Porozmawiajmy o Twoim projekcie</h2>
             <p>Wyślij rysunki lub opis — odpowiemy z wyceną w 48h.</p>
             <a href="/kontakt" class="btn btn-primary">Wyceń swój projekt</a>
         </div>
