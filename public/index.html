@@ -454,6 +454,19 @@
             font-size: 1.2rem;
         }
 
+        /* About Intro + Stats Grid */
+        .about-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .about-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
         /* Services Section */
         .services {
             background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(67, 97, 238, 0.05) 50%, var(--bg-dark) 100%);
@@ -691,6 +704,7 @@
             .about-grid { grid-template-columns: 1fr; }
             .cert-section .about-grid { direction: ltr; }
             .projects-grid { grid-template-columns: 1fr; }
+            .about-intro-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
             .about-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
             .about-stat-item { padding: 1rem !important; }
             .about-stat-number { font-size: 1.8rem !important; }
@@ -1410,13 +1424,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
             </div>
             <!-- Tekst + statystyki w 2 kolumnach -->
-            <div class="gsap-fade-up" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+            <div class="gsap-fade-up about-intro-grid">
                 <div>
                     <p style="color: var(--text-gray); line-height: 1.8; font-size: 1.05rem;">Projektujemy, prefabrykujemy i montujemy — bez pośredników. Własna hala produkcyjna w Tczewie, zespół certyfikowanych spawaczy i inżynierów, flota transportowa.</p>
                     <p style="color: var(--text-gray); line-height: 1.8; font-size: 1.05rem;">Obsługujemy chemię, petrochemię, energetykę, offshore i branżę stoczniową. W Polsce i Niemczech.</p>
                     <a href="/o-nas" style="color: var(--arc-blue); font-family: var(--font-head); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; display: inline-block; margin-top: 1rem;">Poznaj nas bliżej →</a>
                 </div>
-                <div class="about-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="about-stats-grid">
                     <div class="about-stat-item" style="padding: 1.5rem; border-left: 2px solid var(--arc-blue);">
                         <div class="about-stat-number" style="font-family: var(--font-head); font-size: 2.5rem; font-weight: 700; color: var(--text-light); line-height: 1;">15+</div>
                         <span style="font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px;">lat na rynku</span>

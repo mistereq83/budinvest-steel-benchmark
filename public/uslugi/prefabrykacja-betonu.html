@@ -454,6 +454,19 @@
             font-size: 1.2rem;
         }
 
+        /* About Intro + Stats Grid */
+        .about-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .about-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
         /* Services Section */
         .services {
             background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(67, 97, 238, 0.05) 50%, var(--bg-dark) 100%);
@@ -691,6 +704,7 @@
             .about-grid { grid-template-columns: 1fr; }
             .cert-section .about-grid { direction: ltr; }
             .projects-grid { grid-template-columns: 1fr; }
+            .about-intro-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
             .about-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
             .about-stat-item { padding: 1rem !important; }
             .about-stat-number { font-size: 1.8rem !important; }
