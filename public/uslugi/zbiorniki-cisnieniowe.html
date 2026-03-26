@@ -750,12 +750,18 @@
             /* Service subpage section padding */
             section[style*="padding: 5rem 5%"] { padding: 3rem 5% !important; }
             
-            /* Fix: Certyfikaty section compact on mobile */
-            .cert-section .about-grid > .gsap-fade-up:first-child {
-                display: none;
-            }
+            /* Fix: Certyfikaty section — text above images on mobile */
             .cert-section .about-grid {
                 direction: ltr !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            .cert-section .about-grid > .about-content {
+                order: -1 !important;
+            }
+            .cert-section .about-grid > .gsap-fade-up:first-child {
+                order: 1 !important;
+                margin-top: 2rem;
             }
             .cert-section { padding: 4rem 5% !important; }
             .cert-list li { font-size: 1rem; padding: 0.75rem; }
