@@ -142,9 +142,36 @@ def localized_partial(lang, filename):
     return read_file(os.path.join(LANG_CONFIG[lang]['partials_dir'], filename))
 
 
-def prepare_head(head, canonical_url, hreflang_tags, og_locale):
+JSON_LD_TRANSLATIONS = {
+    'pl': {
+        'description': 'Firma specjalizująca się w konstrukcjach stalowych, zbiornikach ciśnieniowych, rurociągach przemysłowych i obróbce metali. 15+ lat doświadczenia, rynki PL i DE.',
+        'knowsAbout': '["konstrukcje stalowe", "zbiorniki ciśnieniowe", "rurociągi przemysłowe", "spawanie MIG MAG TIG", "obróbka metali"]',
+        'inLanguage': 'pl',
+    },
+    'en': {
+        'description': 'Company specializing in steel structures, pressure vessels, industrial pipelines and metal processing. 15+ years of experience, operating in Poland and Germany.',
+        'knowsAbout': '["steel structures", "pressure vessels", "industrial pipelines", "MIG MAG TIG welding", "metal processing"]',
+        'inLanguage': 'en',
+    },
+    'de': {
+        'description': 'Unternehmen spezialisiert auf Stahlkonstruktionen, Druckbehälter, Industrierohrleitungen und Metallbearbeitung. 15+ Jahre Erfahrung, Märkte PL und DE.',
+        'knowsAbout': '["Stahlkonstruktionen", "Druckbehälter", "Industrierohrleitungen", "MIG MAG WIG Schweißen", "Metallbearbeitung"]',
+        'inLanguage': 'de',
+    },
+}
+
+
+def prepare_head(head, canonical_url, hreflang_tags, og_locale, lang='pl'):
     head = re.sub(r'<meta property="og:locale" content="[^"]+">', f'<meta property="og:locale" content="{og_locale}">', head, count=1)
     head = re.sub(r'<link rel="canonical" href="[^"]+">', f'<link rel="canonical" href="{canonical_url}">\n{hreflang_tags}', head, count=1)
+    # Translate JSON-LD per language
+    t = JSON_LD_TRANSLATIONS.get(lang, JSON_LD_TRANSLATIONS['pl'])
+    head = re.sub(
+        r'"description": "Firma specjalizująca się[^"]*"',
+        f'"description": "{t["description"]}"', head)
+    head = re.sub(
+        r'"knowsAbout": \["konstrukcje stalowe"[^\]]*\]',
+        f'"knowsAbout": {t["knowsAbout"]}', head)
     return head
 
 
@@ -164,6 +191,7 @@ def build_page(route_specs, lang):
         canonical_url=url_for(lang, output_rel),
         hreflang_tags=build_hreflang(route_specs),
         og_locale=LANG_CONFIG[lang]['og_locale'],
+        lang=lang,
     )
     navbar = localized_partial(lang, '_navbar.html')
     mobile_menu = localized_partial(lang, '_mobile-menu.html')

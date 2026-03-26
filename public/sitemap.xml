@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://budinvest-steel.com/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://budinvest-steel.com/"/>
+    <priority>1.0</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://budinvest-steel.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://budinvest-steel.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/"/>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- O nas / About / Über uns -->
+  <url>
+    <loc>https://budinvest-steel.com/o-nas</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/o-nas"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/ueber-uns"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/about</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/ueber-uns</loc><priority>0.8</priority></url>
+
+  <!-- Usługi / Services / Leistungen (hub) -->
+  <url>
+    <loc>https://budinvest-steel.com/uslugi</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen"/>
+    <priority>0.9</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/services</loc><priority>0.9</priority></url>
+  <url><loc>https://budinvest-steel.com/de/leistungen</loc><priority>0.9</priority></url>
+
+  <!-- Konstrukcje stalowe -->
+  <url>
+    <loc>https://budinvest-steel.com/uslugi/konstrukcje-stalowe</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi/konstrukcje-stalowe"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services/steel-structures"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen/stahlkonstruktionen"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/services/steel-structures</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/leistungen/stahlkonstruktionen</loc><priority>0.8</priority></url>
+
+  <!-- Zbiorniki ciśnieniowe -->
+  <url>
+    <loc>https://budinvest-steel.com/uslugi/zbiorniki-cisnieniowe</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi/zbiorniki-cisnieniowe"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services/pressure-vessels"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen/druckbehaelter"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/services/pressure-vessels</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/leistungen/druckbehaelter</loc><priority>0.8</priority></url>
+
+  <!-- Rurociągi przemysłowe -->
+  <url>
+    <loc>https://budinvest-steel.com/uslugi/rurociagi-przemyslowe</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi/rurociagi-przemyslowe"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services/industrial-pipelines"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen/industrierohrleitungen"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/services/industrial-pipelines</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/leistungen/industrierohrleitungen</loc><priority>0.8</priority></url>
+
+  <!-- Obróbka metali -->
+  <url>
+    <loc>https://budinvest-steel.com/uslugi/obrobka-metali</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi/obrobka-metali"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services/metal-processing"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen/metallbearbeitung"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/services/metal-processing</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/leistungen/metallbearbeitung</loc><priority>0.8</priority></url>
+
+  <!-- Prefabrykacja betonu -->
+  <url>
+    <loc>https://budinvest-steel.com/uslugi/prefabrykacja-betonu</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi/prefabrykacja-betonu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services/concrete-prefabrication"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen/betonfertigteile"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/services/concrete-prefabrication</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/leistungen/betonfertigteile</loc><priority>0.8</priority></url>
+
+  <!-- Realizacje / Projects / Projekte -->
+  <url>
+    <loc>https://budinvest-steel.com/realizacje</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/realizacje"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/projekte"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/projects</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/projekte</loc><priority>0.8</priority></url>
+
+  <!-- Certyfikaty / Certifications / Zertifikate -->
+  <url>
+    <loc>https://budinvest-steel.com/certyfikaty</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/certyfikaty"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/certifications"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/zertifikate"/>
+    <priority>0.7</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/certifications</loc><priority>0.7</priority></url>
+  <url><loc>https://budinvest-steel.com/de/zertifikate</loc><priority>0.7</priority></url>
+
+  <!-- Park maszynowy / Machinery / Maschinenpark -->
+  <url>
+    <loc>https://budinvest-steel.com/park-maszynowy</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/park-maszynowy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/machinery"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/maschinenpark"/>
+    <priority>0.6</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/machinery</loc><priority>0.6</priority></url>
+  <url><loc>https://budinvest-steel.com/de/maschinenpark</loc><priority>0.6</priority></url>
+
+  <!-- Kariera / Careers / Karriere -->
+  <url>
+    <loc>https://budinvest-steel.com/kariera</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/kariera"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/careers"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/karriere"/>
+    <priority>0.5</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/careers</loc><priority>0.5</priority></url>
+  <url><loc>https://budinvest-steel.com/de/karriere</loc><priority>0.5</priority></url>
+
+  <!-- Kontakt / Contact / Kontakt -->
+  <url>
+    <loc>https://budinvest-steel.com/kontakt</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/kontakt"/>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://budinvest-steel.com/en/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://budinvest-steel.com/de/kontakt</loc><priority>0.8</priority></url>
+
+</urlset>
