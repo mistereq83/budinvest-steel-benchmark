@@ -1482,7 +1482,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <div class="contact-form-wrapper gsap-fade-up">
             <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1.5rem;">We respond within 48 business hours. You can also call us: <a href="tel:+48511641580" style="color: var(--arc-blue);">+48 511 641 580</a></p>
-            <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ Sent!'; this.querySelector('button').disabled=true;">
+            <form class="contact-form" id="contactForm">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div class="form-group"><label for="name" class="form-label">Full name</label><input type="text" id="name" name="name" class="form-control" required placeholder="John Smith" autocomplete="name"></div>
                     <div class="form-group"><label for="company" class="form-label">Company <span style="color: var(--text-gray); font-weight: 400;">(optional)</span></label><input type="text" id="company" name="company" class="form-control" placeholder="Company name" autocomplete="organization"></div>
@@ -1493,8 +1493,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
                 <div class="form-group"><label for="subject" class="form-label">Subject</label><select id="subject" name="subject" class="form-control" required><option value="" disabled selected>Select...</option><option value="wycena-konstrukcje">Quote — steel structures</option><option value="wycena-zbiorniki">Quote — pressure vessels</option><option value="wycena-rurociagi">Quote — industrial pipelines</option><option value="wycena-obrobka">Quote — metal processing</option><option value="wycena-beton">Quote — concrete prefabrication</option><option value="rekrutacja">Recruitment / Careers</option><option value="inne">Other</option></select></div>
                 <div class="form-group"><label for="message" class="form-label">Project description</label><textarea id="message" name="message" class="form-control" required placeholder="Describe your project, include dimensions or send drawings to kontakt@bud-invest.com" rows="4"></textarea></div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; padding: 1rem;">Send enquiry →</button>
-                <p style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Your data is safe. We do not share it with third parties.</p>
+                <!-- Cloudflare Turnstile Widget -->
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAACv13Q8Up_dXfm5z" data-theme="dark" style="margin-top: 1rem;"></div>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top: 1rem; width: 100%; padding: 1rem;">Send enquiry →</button>
+                <p id="formStatus" style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Your data is safe. We do not share it with third parties.</p>
             </form>
         </div>
     </div>
