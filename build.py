@@ -264,33 +264,28 @@ def main():
                     
                     # For non-Polish languages, we need to map filenames
                     if lang_code != 'pl':
-                        # If we're using a language-specific source file, keep the original rel_path
-                        if lang_src_dir != SRC_DIR:
-                            # Using translated file from src/en/ or src/de/
-                            pass  # rel_path is already correct
-                        else:
-                            # Fallback to Polish files - map filename according to URL_MAP
-                            page_key = rel_path.replace('.html', '').replace('index', '')
-                            if not page_key:  # homepage
-                                page_key = ''
-                                
-                            mapped_path = None
-                            if page_key in URL_MAP and lang_code in URL_MAP[page_key]:
-                                mapped_filename = URL_MAP[page_key][lang_code]
-                                if mapped_filename == 'index':
-                                    mapped_path = 'index.html'
-                                elif '/' in mapped_filename:
-                                    mapped_path = f"{mapped_filename}.html"
-                                else:
-                                    mapped_path = f"{mapped_filename}.html"
-                            elif page_key == '':  # homepage special case
-                                mapped_path = 'index.html'
+                        # Map filename according to URL_MAP regardless of source
+                        page_key = rel_path.replace('.html', '').replace('index', '')
+                        if not page_key:  # homepage
+                            page_key = ''
                             
-                            if mapped_path:
-                                rel_path = mapped_path
+                        mapped_path = None
+                        if page_key in URL_MAP and lang_code in URL_MAP[page_key]:
+                            mapped_filename = URL_MAP[page_key][lang_code]
+                            if mapped_filename == 'index':
+                                mapped_path = 'index.html'
+                            elif '/' in mapped_filename:
+                                mapped_path = f"{mapped_filename}.html"
                             else:
-                                # Skip pages that don't have mapping for this language
-                                continue
+                                mapped_path = f"{mapped_filename}.html"
+                        elif page_key == '':  # homepage special case
+                            mapped_path = 'index.html'
+                        
+                        if mapped_path:
+                            rel_path = mapped_path
+                        else:
+                            # Skip pages that don't have mapping for this language
+                            continue
                     
                     out_path = build_page(src_path, rel_path, lang_code, translations.get(lang_code, {}))
                     rel_out = os.path.relpath(out_path, PUBLIC_DIR)
