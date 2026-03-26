@@ -1706,5 +1706,55 @@ if (navEl) {
 // Language Switcher — no JS needed, links have correct href from build
 </script>
 
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<!-- Contact Form Submit Handler -->
+<script>
+document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const status = document.getElementById('formStatus');
+    const origText = btn.textContent;
+    
+    btn.textContent = 'Wysyłanie...';
+    btn.disabled = true;
+    
+    try {
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            btn.textContent = '✓ Wysłano!';
+            btn.style.background = '#22c55e';
+            status.textContent = 'Dziękujemy! Odpowiemy w ciągu 48 godzin.';
+            status.style.color = '#22c55e';
+            this.reset();
+            if (typeof turnstile !== 'undefined') turnstile.reset();
+        } else {
+            btn.textContent = '✗ Błąd — spróbuj ponownie';
+            btn.style.background = '#ef4444';
+            status.textContent = result.error || 'Coś poszło nie tak.';
+            status.style.color = '#ef4444';
+            btn.disabled = false;
+            setTimeout(() => { btn.textContent = origText; btn.style.background = ''; status.textContent = 'Twoje dane są bezpieczne.'; status.style.color = 'var(--text-gray)'; }, 4000);
+        }
+    } catch (err) {
+        btn.textContent = '✗ Błąd sieci';
+        btn.style.background = '#ef4444';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = origText; btn.style.background = ''; }, 4000);
+    }
+});
+</script>
+
 </body>
 </html>

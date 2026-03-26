@@ -53,7 +53,7 @@ nav_active: kontakt
             <!-- Prawa Kolumna: Formularz -->
             <div class="contact-form-wrapper gsap-fade-up">
                 <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1.5rem;">Odpowiadamy w ciągu 48 godzin roboczych. Możesz też zadzwonić: <a href="tel:+48511641580" style="color: var(--arc-blue);">+48 511 641 580</a></p>
-                <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ Wysłano!'; this.querySelector('button').disabled=true;">
+                <form class="contact-form" id="contactForm">
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="form-group">
@@ -98,8 +98,11 @@ nav_active: kontakt
                         <textarea id="message" name="message" class="form-control" required placeholder="Opisz projekt, załącz wymiary lub wyślij rysunki na kontakt@bud-invest.com" rows="4"></textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; padding: 1rem;">Wyślij zapytanie ofertowe →</button>
-                    <p style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.</p>
+                    <!-- Cloudflare Turnstile Widget -->
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAACv13Q8Up_dXfm5z" data-theme="dark" style="margin-top: 1rem;"></div>
+                    
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top: 1rem; width: 100%; padding: 1rem;">Wyślij zapytanie ofertowe →</button>
+                    <p id="formStatus" style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.</p>
                     
                 </form>
             </div>
