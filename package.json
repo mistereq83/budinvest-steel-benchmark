@@ -1,0 +1,15 @@
+{
+  "name": "budinvest-steel",
+  "version": "1.0.0",
+  "description": "Budinvest Steel - Konstrukcje stalowe i obróbka metali",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "express": "^4.21.0",
+    "resend": "^6.9.4"
+  }
+}

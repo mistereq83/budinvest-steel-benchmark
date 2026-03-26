@@ -1,0 +1,84 @@
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Hamburger menu
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('active')));
+    }
+
+    // Fade up
+    gsap.utils.toArray('.gsap-fade-up').forEach(el => {
+        gsap.fromTo(el, {y:40, opacity:0}, {y:0, opacity:1, duration:0.8, ease:'power2.out', scrollTrigger:{trigger:el, start:'top 85%'}});
+    });
+
+    // Stagger cards
+    document.querySelectorAll('.services-grid, .job-grid, .equipment-grid').forEach(grid => {
+        const cards = grid.querySelectorAll('.gsap-stagger, .service-card');
+        if (cards.length) {
+            ScrollTrigger.create({trigger: grid, start:'top 80%', animation: gsap.fromTo(cards, {y:50,opacity:0}, {y:0,opacity:1,stagger:0.1,duration:0.6,ease:'power2.out'})});
+        }
+    });
+
+    // Stats stagger
+    const statsBar = document.querySelector('.stats-bar');
+    if (statsBar) {
+        const stats = statsBar.querySelectorAll('.gsap-stagger-stat');
+        if (stats.length) {
+            ScrollTrigger.create({trigger: statsBar, start:'top 85%', animation: gsap.fromTo(stats, {y:30,opacity:0}, {y:0,opacity:1,stagger:0.15,duration:0.6,ease:'power2.out'})});
+        }
+    }
+});
+</script>
+
+<!-- GTM noscript (placeholder) -->
+<!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
+
+<script>
+// Realizacje filter
+(function() {
+    const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
+    const items = document.querySelectorAll('.filter-item');
+    if (!filterBtns.length || !items.length) return;
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            items.forEach(item => {
+                if (filter === 'all' || item.classList.contains(filter)) {
+                    item.style.display = '';
+                    gsap.fromTo(item, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.4, ease: 'power2.out'});
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+})();
+
+// Nav scroll state
+const navEl = document.querySelector('nav');
+if (navEl) {
+    window.addEventListener('scroll', () => {
+        navEl.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+}
+
+// Hero video lazy load — desktop only, after page fully loaded
+(function() {
+    const vid = document.getElementById('heroVideo');
+    if (!vid) return;
+    if (window.innerWidth < 768) { vid.remove(); return; }
+    
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            vid.play().catch(() => {}); // autoplay may fail, poster stays
+        }, 1000);
+    });
+})();
+</script>
