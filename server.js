@@ -169,7 +169,89 @@ app.use(express.static(path.join(__dirname, 'public'), {
     etag: true
 }));
 
-// Clean URLs
+// English routes
+app.get('/en/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'en', 'index.html'), err => { if (err) res.status(404).send('Page not found'); });
+});
+app.get('/en/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'en', 'about.html'), err => { if (err) res.status(404).send('Page not found'); });
+});
+app.get('/en/services', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'en', 'services.html'), err => { if (err) res.status(404).send('Page not found'); });
+});
+app.get('/en/services/:page', (req, res) => {
+    const pageMap = {
+        'steel-structures': 'steel-structures',
+        'pressure-vessels': 'pressure-vessels',
+        'industrial-pipelines': 'industrial-pipelines',
+        'metal-processing': 'metal-processing',
+        'concrete-prefabrication': 'concrete-prefabrication'
+    };
+    const page = pageMap[req.params.page];
+    if (page) {
+        res.sendFile(path.join(__dirname, 'public', 'en', 'services', `${page}.html`), err => { if (err) res.status(404).send('Page not found'); });
+    } else {
+        res.status(404).send('Page not found');
+    }
+});
+app.get('/en/:page', (req, res) => {
+    const pageMap = {
+        'projects': 'projects',
+        'certifications': 'certifications',
+        'machinery': 'machinery',
+        'careers': 'careers',
+        'contact': 'contact'
+    };
+    const page = pageMap[req.params.page];
+    if (page) {
+        res.sendFile(path.join(__dirname, 'public', 'en', `${page}.html`), err => { if (err) res.status(404).send('Page not found'); });
+    } else {
+        res.status(404).send('Page not found');
+    }
+});
+
+// German routes
+app.get('/de/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'de', 'index.html'), err => { if (err) res.status(404).send('Page not found'); });
+});
+app.get('/de/ueber-uns', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'de', 'ueber-uns.html'), err => { if (err) res.status(404).send('Page not found'); });
+});
+app.get('/de/leistungen', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'de', 'leistungen.html'), err => { if (err) res.status(404).send('Page not found'); });
+});
+app.get('/de/leistungen/:page', (req, res) => {
+    const pageMap = {
+        'stahlkonstruktionen': 'stahlkonstruktionen',
+        'druckbehaelter': 'druckbehaelter',
+        'industrierohrleitungen': 'industrierohrleitungen',
+        'metallbearbeitung': 'metallbearbeitung',
+        'betonfertigteile': 'betonfertigteile'
+    };
+    const page = pageMap[req.params.page];
+    if (page) {
+        res.sendFile(path.join(__dirname, 'public', 'de', 'leistungen', `${page}.html`), err => { if (err) res.status(404).send('Page not found'); });
+    } else {
+        res.status(404).send('Page not found');
+    }
+});
+app.get('/de/:page', (req, res) => {
+    const pageMap = {
+        'projekte': 'projekte',
+        'zertifikate': 'zertifikate',
+        'maschinenpark': 'maschinenpark',
+        'karriere': 'karriere',
+        'kontakt': 'kontakt'
+    };
+    const page = pageMap[req.params.page];
+    if (page) {
+        res.sendFile(path.join(__dirname, 'public', 'de', `${page}.html`), err => { if (err) res.status(404).send('Page not found'); });
+    } else {
+        res.status(404).send('Page not found');
+    }
+});
+
+// Polish routes (existing)
 app.get('/:page', (req, res, next) => {
     res.sendFile(path.join(__dirname, 'public', `${req.params.page}.html`), err => { if (err) next(); });
 });

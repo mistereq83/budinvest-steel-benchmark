@@ -81,4 +81,79 @@ if (navEl) {
         }, 1000);
     });
 })();
+
+// Language Switcher
+(function() {
+    const langFlags = document.querySelectorAll('.lang-flag');
+    if (!langFlags.length) return;
+    
+    // URL mappings per language
+    const urlMap = {
+        '': { en: '/en/', de: '/de/' }, // homepage
+        'o-nas': { en: '/en/about', de: '/de/ueber-uns' },
+        'uslugi': { en: '/en/services', de: '/de/leistungen' },
+        'uslugi/konstrukcje-stalowe': { en: '/en/services/steel-structures', de: '/de/leistungen/stahlkonstruktionen' },
+        'uslugi/zbiorniki-cisnieniowe': { en: '/en/services/pressure-vessels', de: '/de/leistungen/druckbehaelter' },
+        'uslugi/rurociagi-przemyslowe': { en: '/en/services/industrial-pipelines', de: '/de/leistungen/industrierohrleitungen' },
+        'uslugi/obrobka-metali': { en: '/en/services/metal-processing', de: '/de/leistungen/metallbearbeitung' },
+        'uslugi/prefabrykacja-betonu': { en: '/en/services/concrete-prefabrication', de: '/de/leistungen/betonfertigteile' },
+        'realizacje': { en: '/en/projects', de: '/de/projekte' },
+        'certyfikaty': { en: '/en/certifications', de: '/de/zertifikate' },
+        'park-maszynowy': { en: '/en/machinery', de: '/de/maschinenpark' },
+        'kariera': { en: '/en/careers', de: '/de/karriere' },
+        'kontakt': { en: '/en/contact', de: '/de/kontakt' }
+    };
+    
+    function getCurrentPageKey() {
+        const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+        return path;
+    }
+    
+    langFlags.forEach(flag => {
+        flag.addEventListener('click', () => {
+            const targetLang = flag.dataset.lang;
+            if (targetLang === 'pl') {
+                // Go to Polish version - map current page back to PL
+                const currentPath = window.location.pathname;
+                if (currentPath.startsWith('/en/') || currentPath.startsWith('/de/')) {
+                    // Find the corresponding PL page
+                    const enPath = currentPath.replace(/^\/en\//, '');
+                    const dePath = currentPath.replace(/^\/de\//, '');
+                    
+                    for (const [plKey, mapping] of Object.entries(urlMap)) {
+                        if ((mapping.en && mapping.en.replace('/en/', '') === enPath) ||
+                            (mapping.de && mapping.de.replace('/de/', '') === dePath)) {
+                            window.location.href = plKey ? `/${plKey}` : '/';
+                            return;
+                        }
+                    }
+                }
+                return;
+            }
+            
+            const currentPageKey = getCurrentPageKey();
+            const mapping = urlMap[currentPageKey];
+            
+            if (mapping && mapping[targetLang]) {
+                window.location.href = mapping[targetLang];
+            }
+        });
+    });
+    
+    // Set active language based on current path
+    function setActiveLanguage() {
+        const currentPath = window.location.pathname;
+        langFlags.forEach(flag => flag.classList.remove('active'));
+        
+        if (currentPath.startsWith('/en/')) {
+            document.querySelector('[data-lang="en"]')?.classList.add('active');
+        } else if (currentPath.startsWith('/de/')) {
+            document.querySelector('[data-lang="de"]')?.classList.add('active');
+        } else {
+            document.querySelector('[data-lang="pl"]')?.classList.add('active');
+        }
+    }
+    
+    setActiveLanguage();
+})();
 </script>

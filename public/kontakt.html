@@ -6,6 +6,10 @@
     <meta property="og:title" content="Kontakt | Budinvest Steel">
     <meta property="og:description" content="Skontaktuj się z BUD-INVEST. Porozmawiajmy o Twoim projekcie. Oferujemy kompleksowe konstrukcje stalowe, obróbkę metali i spawanie.">
     <meta property="og:url" content="https://budinvest-steel.com/kontakt">
+    <link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/kontakt" />
+    <link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/contact" />
+    <link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/kontakt" />
+    <link rel="alternate" hreflang="x-default" href="https://budinvest-steel.com/kontakt" />
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -1215,6 +1219,33 @@
             outline: none;
         }
 
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        .lang-flag {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.6;
+            border: 1px solid transparent;
+        }
+        .lang-flag:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(67, 97, 238, 0.3);
+        }
+        .lang-flag.active {
+            opacity: 1;
+            background: rgba(67, 97, 238, 0.1);
+            border-color: var(--arc-blue);
+        }
+
     
 .page-hero {
     position: relative;
@@ -1345,8 +1376,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
 -->
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
 </head>
 <body>
 <div class="noise-overlay"></div>
@@ -1375,6 +1404,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <!-- <a href="/kariera" data-nav="kariera">Kariera</a> -->
     </div>
 
+    <div class="language-switcher">
+        <span class="lang-flag active" data-lang="pl" title="Polski">🇵🇱</span>
+        <span class="lang-flag" data-lang="en" title="English">🇬🇧</span>
+        <span class="lang-flag" data-lang="de" title="Deutsch">🇩🇪</span>
+    </div>
+
     <a href="/kontakt" class="btn nav-cta" data-nav="kontakt" class="active">Kontakt</a>
 
     <div class="hamburger" id="hamburgerBtn">
@@ -1385,6 +1420,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
+    <div class="language-switcher" style="margin-bottom: 2rem;">
+        <span class="lang-flag active" data-lang="pl" title="Polski">🇵🇱</span>
+        <span class="lang-flag" data-lang="en" title="English">🇬🇧</span>
+        <span class="lang-flag" data-lang="de" title="Deutsch">🇩🇪</span>
+    </div>
     <a href="/" data-nav="home">Strona główna</a>
     <a href="/o-nas" data-nav="o-nas">O firmie</a>
     <a href="/uslugi" data-nav="uslugi">Usługi</a>
@@ -1444,7 +1484,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <!-- Prawa Kolumna: Formularz -->
             <div class="contact-form-wrapper gsap-fade-up">
                 <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1.5rem;">Odpowiadamy w ciągu 48 godzin roboczych. Możesz też zadzwonić: <a href="tel:+48511641580" style="color: var(--arc-blue);">+48 511 641 580</a></p>
-                <form id="contactForm" class="contact-form">
+                <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ Wysłano!'; this.querySelector('button').disabled=true;">
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="form-group">
@@ -1489,11 +1529,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <textarea id="message" name="message" class="form-control" required placeholder="Opisz projekt, załącz wymiary lub wyślij rysunki na kontakt@bud-invest.com" rows="4"></textarea>
                     </div>
                     
-                    <!-- Turnstile widget -->
-                    <div style="margin-top: 1.5rem; display: flex; justify-content: center;">
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAACv13Q8Up_dXfm5z" data-theme="light"></div>
-                    </div>
-
                     <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; padding: 1rem;">Wyślij zapytanie ofertowe →</button>
                     <p style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.</p>
                     
@@ -1506,7 +1541,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- 3. Mapa Google Maps -->
     <section class="map-section">
         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d18.7836!3d54.0851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd60e757d59341%3A0x8e09f0430b027908!2sBUD-INVEST!5e0!3m2!1spl!2spl!4v1711440000000!5m2!1spl!2spl" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2346.064560700547!2d18.783633615862085!3d54.08514158014589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd5fd6f3a3f3b9%3A0xc6657c96fb5c64c7!2sDworcowa%2012%2C%2083-100%20Tczew!5e0!3m2!1spl!2spl!4v1680000000000!5m2!1spl!2spl" 
             class="map-iframe"
             allowfullscreen="" 
             loading="lazy" 
@@ -1713,98 +1748,81 @@ if (navEl) {
         }, 1000);
     });
 })();
-</script>
 
-<script>
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+// Language Switcher
+(function() {
+    const langFlags = document.querySelectorAll('.lang-flag');
+    if (!langFlags.length) return;
     
-    const form = this;
-    const submitBtn = form.querySelector("button[type=submit]");
-    const originalText = submitBtn.textContent;
-    
-    // Get form data
-    const formData = new FormData(form);
-    const turnstileResponse = document.querySelector(".cf-turnstile input")?.value || 
-                            turnstile?.getResponse?.() || "";
-    
-    const data = {
-        name: formData.get("name"),
-        company: formData.get("company"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        subject: formData.get("subject"),
-        message: formData.get("message"),
-        "cf-turnstile-response": turnstileResponse
+    // URL mappings per language
+    const urlMap = {
+        '': { en: '/en/', de: '/de/' }, // homepage
+        'o-nas': { en: '/en/about', de: '/de/ueber-uns' },
+        'uslugi': { en: '/en/services', de: '/de/leistungen' },
+        'uslugi/konstrukcje-stalowe': { en: '/en/services/steel-structures', de: '/de/leistungen/stahlkonstruktionen' },
+        'uslugi/zbiorniki-cisnieniowe': { en: '/en/services/pressure-vessels', de: '/de/leistungen/druckbehaelter' },
+        'uslugi/rurociagi-przemyslowe': { en: '/en/services/industrial-pipelines', de: '/de/leistungen/industrierohrleitungen' },
+        'uslugi/obrobka-metali': { en: '/en/services/metal-processing', de: '/de/leistungen/metallbearbeitung' },
+        'uslugi/prefabrykacja-betonu': { en: '/en/services/concrete-prefabrication', de: '/de/leistungen/betonfertigteile' },
+        'realizacje': { en: '/en/projects', de: '/de/projekte' },
+        'certyfikaty': { en: '/en/certifications', de: '/de/zertifikate' },
+        'park-maszynowy': { en: '/en/machinery', de: '/de/maschinenpark' },
+        'kariera': { en: '/en/careers', de: '/de/karriere' },
+        'kontakt': { en: '/en/contact', de: '/de/kontakt' }
     };
     
-    // Validation
-    if (!data.name || !data.email || !data.subject || !data.message) {
-        showMessage("Uzupełnij wszystkie wymagane pola", "error");
-        return;
+    function getCurrentPageKey() {
+        const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+        return path;
     }
     
-    if (!data["cf-turnstile-response"]) {
-        showMessage("Potwierdź, że nie jesteś robotem", "error");
-        return;
-    }
-    
-    // Loading state
-    submitBtn.textContent = "Wysyłanie...";
-    submitBtn.disabled = true;
-    
-    try {
-        const response = await fetch("/api/contact", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            showMessage("✅ Wiadomość wysłana! Oddzwonimy w ciągu 48h.", "success");
-            form.reset();
-            // Reset Turnstile
-            if (window.turnstile) {
-                turnstile.reset();
+    langFlags.forEach(flag => {
+        flag.addEventListener('click', () => {
+            const targetLang = flag.dataset.lang;
+            if (targetLang === 'pl') {
+                // Go to Polish version - map current page back to PL
+                const currentPath = window.location.pathname;
+                if (currentPath.startsWith('/en/') || currentPath.startsWith('/de/')) {
+                    // Find the corresponding PL page
+                    const enPath = currentPath.replace(/^\/en\//, '');
+                    const dePath = currentPath.replace(/^\/de\//, '');
+                    
+                    for (const [plKey, mapping] of Object.entries(urlMap)) {
+                        if ((mapping.en && mapping.en.replace('/en/', '') === enPath) ||
+                            (mapping.de && mapping.de.replace('/de/', '') === dePath)) {
+                            window.location.href = plKey ? `/${plKey}` : '/';
+                            return;
+                        }
+                    }
+                }
+                return;
             }
+            
+            const currentPageKey = getCurrentPageKey();
+            const mapping = urlMap[currentPageKey];
+            
+            if (mapping && mapping[targetLang]) {
+                window.location.href = mapping[targetLang];
+            }
+        });
+    });
+    
+    // Set active language based on current path
+    function setActiveLanguage() {
+        const currentPath = window.location.pathname;
+        langFlags.forEach(flag => flag.classList.remove('active'));
+        
+        if (currentPath.startsWith('/en/')) {
+            document.querySelector('[data-lang="en"]')?.classList.add('active');
+        } else if (currentPath.startsWith('/de/')) {
+            document.querySelector('[data-lang="de"]')?.classList.add('active');
         } else {
-            showMessage(result.error || "Wystąpił błąd podczas wysyłania", "error");
+            document.querySelector('[data-lang="pl"]')?.classList.add('active');
         }
-    } catch (error) {
-        console.error("Contact form error:", error);
-        showMessage("Wystąpił błąd. Spróbuj ponownie lub zadzwoń: +48 511 641 580", "error");
-    } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
     }
-});
-
-function showMessage(message, type) {
-    // Remove existing message
-    const existing = document.querySelector(".contact-message");
-    if (existing) existing.remove();
     
-    const messageEl = document.createElement("div");
-    messageEl.className = `contact-message ${type}`;
-    messageEl.innerHTML = message;
-    messageEl.style.cssText = `
-        padding: 15px; margin: 15px 0; border-radius: 8px; font-weight: 500;
-        ${type === "success" ? "background: #d4edda; color: #155724; border: 1px solid #c3e6cb;" : ""}
-        ${type === "error" ? "background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;" : ""}
-    `;
-    
-    const form = document.getElementById("contactForm");
-    form.parentNode.insertBefore(messageEl, form);
-    
-    // Auto remove after 8 seconds
-    setTimeout(() => {
-        if (messageEl.parentNode) messageEl.remove();
-    }, 8000);
-}
+    setActiveLanguage();
+})();
 </script>
 
 </body>

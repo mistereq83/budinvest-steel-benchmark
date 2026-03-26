@@ -1207,6 +1207,33 @@
             outline: none;
         }
 
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        .lang-flag {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.6;
+            border: 1px solid transparent;
+        }
+        .lang-flag:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(67, 97, 238, 0.3);
+        }
+        .lang-flag.active {
+            opacity: 1;
+            background: rgba(67, 97, 238, 0.1);
+            border-color: var(--arc-blue);
+        }
+
     
 .page-hero {
     position: relative;
