@@ -1,200 +1,60 @@
 ---
 title: Contact | Budinvest Steel
-description: Contact BUD-INVEST. Let's talk about your project. We offer comprehensive steel structures, metal processing and welding.
+description: Contact BUD-INVEST. Let's talk about your project. We offer comprehensive steel structures, metal processing and welding services.
 nav_active: kontakt
 ---
 
-<!-- 1. Hero Section -->
-    <section class="page-hero">
+<section class="page-hero">
     <div class="page-hero-bg" style="background-image: url('/images/realizacje/realizacja-11.jpg');"></div>
     <div class="page-hero-overlay"></div>
     <div class="gsap-hero">
         <span class="mono-text">Contact</span>
-        <h1>Let's talk about <span class="text-accent">your project</span></h1>
-        <p class="page-hero-desc">Contact us to discuss details and receive a quote.</p>
+        <h1>Let's talk about your <span class="text-accent">project</span></h1>
+        <p class="page-hero-desc">Contact us to discuss the details and receive a quote.</p>
     </div>
 </section>
 
-    <!-- 2. Kontakt Content -->
-    <section class="contact-section">
-        <div class="contact-grid">
-            
-            <!-- Lewa Kolumna: Dane -->
-            <div class="contact-info gsap-fade-up">
-                <div class="contact-info-card">
-                    <div class="contact-info-item">
-                        <h4>Company Details</h4>
-                        <p><strong>BUD - INVEST Sp. z o.o.</strong></p>
-                        <p>ul. Dworcowa 12</p>
-                        <p>83-100 Tczew</p>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <h4>Contact</h4>
-                        <p>tel: <a href="tel:+48511641580">+48 511 641 580</a></p>
-                        <p>email: <a href="mailto:kontakt@bud-invest.com">kontakt@bud-invest.com</a></p>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <h4>Registration Data</h4>
-                        <p>KRS: 0000450321</p>
-                        <p>NIP: 5932594532</p>
-                        <p>REGON: 221830868</p>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <h4>Working Hours</h4>
-                        <p>Monday - Friday</p>
-                        <p>7:00 - 16:00</p>
-                    </div>
+<section class="contact-section">
+    <div class="contact-grid">
+        <div class="contact-info gsap-fade-up">
+            <div class="contact-info-card">
+                <div class="contact-info-item"><h4>Company details</h4><p><strong>BUD - INVEST Sp. z o.o.</strong></p><p>ul. Dworcowa 12</p><p>83-100 Tczew, Poland</p></div>
+                <div class="contact-info-item"><h4>Contact</h4><p>Phone: <a href="tel:+48511641580">+48 511 641 580</a></p><p>Email: <a href="mailto:kontakt@bud-invest.com">kontakt@bud-invest.com</a></p></div>
+                <div class="contact-info-item"><h4>Registration data</h4><p>KRS: 0000450321</p><p>NIP: 5932594532</p><p>REGON: 221830868</p></div>
+                <div class="contact-info-item"><h4>Working hours</h4><p>Monday - Friday</p><p>7:00 AM - 4:00 PM</p></div>
+            </div>
+        </div>
+        <div class="contact-form-wrapper gsap-fade-up">
+            <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1.5rem;">We respond within 48 business hours. You can also call us: <a href="tel:+48511641580" style="color: var(--arc-blue);">+48 511 641 580</a></p>
+            <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ Sent!'; this.querySelector('button').disabled=true;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group"><label for="name" class="form-label">Full name</label><input type="text" id="name" name="name" class="form-control" required placeholder="John Smith" autocomplete="name"></div>
+                    <div class="form-group"><label for="company" class="form-label">Company <span style="color: var(--text-gray); font-weight: 400;">(optional)</span></label><input type="text" id="company" name="company" class="form-control" placeholder="Company name" autocomplete="organization"></div>
                 </div>
-            </div>
-            
-            <!-- Prawa Kolumna: Formularz -->
-            <div class="contact-form-wrapper gsap-fade-up">
-                <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1.5rem;">Odpowiadamy w ciągu 48 godzin roboczych. Możesz też zadzwonić: <a href="tel:+48511641580" style="color: var(--arc-blue);">+48 511 641 580</a></p>
-                <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ Wysłano!'; this.querySelector('button').disabled=true;">
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Imię i nazwisko</label>
-                            <input type="text" id="name" name="name" class="form-control" required placeholder="Jan Kowalski" autocomplete="name">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="company" class="form-label">Firma <span style="color: var(--text-gray); font-weight: 400;">(opcjonalnie)</span></label>
-                            <input type="text" id="company" name="company" class="form-control" placeholder="Nazwa firmy" autocomplete="organization">
-                        </div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required placeholder="jan@firma.pl" autocomplete="email">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Telefon <span style="color: var(--text-gray); font-weight: 400;">(opcjonalnie)</span></label>
-                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+48 511 000 000" autocomplete="tel">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject" class="form-label">Czego dotyczy zapytanie?</label>
-                        <select id="subject" name="subject" class="form-control" required>
-                            <option value="" disabled selected>Wybierz...</option>
-                            <option value="wycena-konstrukcje">Wycena — konstrukcje stalowe</option>
-                            <option value="wycena-zbiorniki">Wycena — zbiorniki ciśnieniowe</option>
-                            <option value="wycena-rurociagi">Wycena — rurociągi przemysłowe</option>
-                            <option value="wycena-obrobka">Wycena — obróbka metali</option>
-                            <option value="wycena-beton">Wycena — prefabrykacja betonu</option>
-                            <option value="rekrutacja">Rekrutacja / Praca</option>
-                            <option value="inne">Inne</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message" class="form-label">Opis projektu</label>
-                        <textarea id="message" name="message" class="form-control" required placeholder="Opisz projekt, załącz wymiary lub wyślij rysunki na kontakt@bud-invest.com" rows="4"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; padding: 1rem;">Wyślij zapytanie ofertowe →</button>
-                    <p style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.</p>
-                    
-                </form>
-            </div>
-            
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group"><label for="email" class="form-label">Email</label><input type="email" id="email" name="email" class="form-control" required placeholder="john@company.com" autocomplete="email"></div>
+                    <div class="form-group"><label for="phone" class="form-label">Phone <span style="color: var(--text-gray); font-weight: 400;">(optional)</span></label><input type="tel" id="phone" name="phone" class="form-control" placeholder="+48 511 000 000" autocomplete="tel"></div>
+                </div>
+                <div class="form-group"><label for="subject" class="form-label">Subject</label><select id="subject" name="subject" class="form-control" required><option value="" disabled selected>Select...</option><option value="wycena-konstrukcje">Quote — steel structures</option><option value="wycena-zbiorniki">Quote — pressure vessels</option><option value="wycena-rurociagi">Quote — industrial pipelines</option><option value="wycena-obrobka">Quote — metal processing</option><option value="wycena-beton">Quote — concrete prefabrication</option><option value="rekrutacja">Recruitment / Careers</option><option value="inne">Other</option></select></div>
+                <div class="form-group"><label for="message" class="form-label">Project description</label><textarea id="message" name="message" class="form-control" required placeholder="Describe your project, include dimensions or send drawings to kontakt@bud-invest.com" rows="4"></textarea></div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; padding: 1rem;">Send enquiry →</button>
+                <p style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Your data is safe. We do not share it with third parties.</p>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- 3. Mapa Google Maps -->
-    <section class="map-section">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2346.064560700547!2d18.783633615862085!3d54.08514158014589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd5fd6f3a3f3b9%3A0xc6657c96fb5c64c7!2sDworcowa%2012%2C%2083-100%20Tczew!5e0!3m2!1spl!2spl!4v1680000000000!5m2!1spl!2spl" 
-            class="map-iframe"
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </section>
+<section class="map-section">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2346.064560700547!2d18.783633615862085!3d54.08514158014589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd5fd6f3a3f3b9%3A0xc6657c96fb5c64c7!2sDworcowa%2012%2C%2083-100%20Tczew!5e0!3m2!1sen!2spl!4v1680000000000!5m2!1sen!2spl" class="map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
 
-    <!-- FAQ Section (AI-SEO) -->
-    <section style="padding: 5rem 5%; max-width: 900px; margin: 0 auto;">
-        <div class="gsap-fade-up" style="text-align: center; margin-bottom: 3rem;">
-            <span class="mono-text">FAQ</span>
-            <h2>Najczęściej zadawane <span class="text-accent">pytania</span></h2>
-        </div>
-        <div class="faq-list">
-            <details class="faq-item gsap-fade-up">
-                <summary>Jakie certyfikaty posiada BUD-INVEST?</summary>
-                <p>Posiadamy certyfikaty EN ISO 3834-2:2021 (wymagania jakościowe dotyczące spawania) oraz EN 1090-1:2009+A1:2011 (wykonanie konstrukcji stalowych). Pozwalają one na realizację projektów w wymagających branżach: chemicznej, energetycznej i offshore.</p>
-            </details>
-            <details class="faq-item gsap-fade-up">
-                <summary>Ile czasu zajmuje realizacja typowego projektu?</summary>
-                <p>Czas realizacji zależy od skali projektu. Proste elementy stalowe — 2-4 tygodnie. Złożone konstrukcje nośne — 6-12 tygodni. Kompletne instalacje rurociągowe — 3-6 miesięcy. Po otrzymaniu dokumentacji technicznej podajemy dokładny harmonogram w ciągu 48h.</p>
-            </details>
-            <details class="faq-item gsap-fade-up">
-                <summary>Czy realizujecie projekty w Niemczech?</summary>
-                <p>Tak. Aktywnie działamy na rynku niemieckim od ponad 10 lat. Realizujemy projekty jako generalny wykonawca lub podwykonawca dla niemieckich firm z branży chemicznej, energetycznej i stoczniowej. Zapewniamy transport i montaż na terenie Niemiec.</p>
-            </details>
-            <details class="faq-item gsap-fade-up">
-                <summary>Jakie technologie spawania stosujecie?</summary>
-                <p>Stosujemy technologie MIG/MAG, TIG oraz spawanie łukiem krytym (SAW). Nasi spawacze posiadają uprawnienia europejskie. Spawamy stale konstrukcyjne, nierdzewne, kwasoodporne oraz stopy specjalne.</p>
-            </details>
-            <details class="faq-item gsap-fade-up">
-                <summary>Jak wygląda proces wyceny?</summary>
-                <p>Wyślij dokumentację techniczną (rysunki, specyfikacje) na kontakt@bud-invest.com lub przez formularz. Nasz zespół inżynierów przygotuje szczegółową wycenę z harmonogramem w ciągu 48 godzin roboczych. Wycena jest bezpłatna.</p>
-            </details>
-        </div>
-    </section>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Jakie certyfikaty posiada BUD-INVEST?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Posiadamy certyfikaty EN ISO 3834-2:2021 (wymagania jakościowe dotyczące spawania) oraz EN 1090-1:2009+A1:2011 (wykonanie konstrukcji stalowych). Pozwalają one na realizację projektów w wymagających branżach: chemicznej, energetycznej i offshore."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Ile czasu zajmuje realizacja typowego projektu?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Czas realizacji zależy od skali projektu. Proste elementy stalowe — 2-4 tygodnie. Złożone konstrukcje nośne — 6-12 tygodni. Kompletne instalacje rurociągowe — 3-6 miesięcy."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Czy BUD-INVEST realizuje projekty w Niemczech?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Tak. Aktywnie działamy na rynku niemieckim od ponad 10 lat. Realizujemy projekty jako generalny wykonawca lub podwykonawca dla niemieckich firm z branży chemicznej, energetycznej i stoczniowej."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Jakie technologie spawania stosuje BUD-INVEST?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Stosujemy technologie MIG/MAG, TIG oraz spawanie łukiem krytym (SAW). Nasi spawacze posiadają uprawnienia europejskie. Spawamy stale konstrukcyjne, nierdzewne, kwasoodporne oraz stopy specjalne."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Jak wygląda proces wyceny w BUD-INVEST?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Wyślij dokumentację techniczną (rysunki, specyfikacje) na kontakt@bud-invest.com lub przez formularz. Nasz zespół inżynierów przygotuje szczegółową wycenę z harmonogramem w ciągu 48 godzin roboczych. Wycena jest bezpłatna."
-          }
-        }
-      ]
-    }
-    </script>
-
-    <!-- 4. Footer -->
+<section style="padding: 5rem 5%; max-width: 900px; margin: 0 auto;">
+    <div class="gsap-fade-up" style="text-align: center; margin-bottom: 3rem;"><span class="mono-text">FAQ</span><h2>Frequently asked <span class="text-accent">questions</span></h2></div>
+    <div class="faq-list">
+        <details class="faq-item gsap-fade-up"><summary>Which certificates does BUD-INVEST hold?</summary><p>We hold EN ISO 3834-2:2021 certification for welding quality requirements and EN 1090-1:2009+A1:2011 certification for execution of steel structures. These approvals enable us to deliver projects for demanding chemical, energy and offshore sectors.</p></details>
+        <details class="faq-item gsap-fade-up"><summary>How long does a typical project take?</summary><p>Lead time depends on scope. Simple steel elements usually take 2 to 4 weeks, complex load-bearing structures 6 to 12 weeks, and complete pipeline installations 3 to 6 months. Once we receive technical documentation, we provide a precise schedule within 48 hours.</p></details>
+        <details class="faq-item gsap-fade-up"><summary>Do you execute projects in Germany?</summary><p>Yes. We have been active on the German market for more than 10 years. We work as a general contractor or subcontractor for German companies in the chemical, energy and shipbuilding sectors, including transport and on-site assembly.</p></details>
+        <details class="faq-item gsap-fade-up"><summary>Which welding technologies do you use?</summary><p>We use MIG/MAG, TIG and submerged arc welding (SAW). Our welders hold European qualifications and work with structural steels, stainless steels, acid-resistant steels and specialty alloys.</p></details>
+        <details class="faq-item gsap-fade-up"><summary>How does the quotation process work?</summary><p>Send your technical documentation, drawings or specifications to kontakt@bud-invest.com or via the contact form. Our engineering team will prepare a detailed quotation and schedule within 48 business hours. The quotation is free of charge.</p></details>
+    </div>
+</section>
