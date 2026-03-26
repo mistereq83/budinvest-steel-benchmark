@@ -251,6 +251,11 @@ app.get('/de/:page', (req, res) => {
     }
 });
 
+// Privacy policy routes
+app.get('/polityka-prywatnosci', (req, res) => res.sendFile(path.join(__dirname, 'public', 'polityka-prywatnosci.html')));
+app.get('/en/privacy-policy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'en', 'privacy-policy.html')));
+app.get('/de/datenschutz', (req, res) => res.sendFile(path.join(__dirname, 'public', 'de', 'datenschutz.html')));
+
 // Polish routes (existing)
 app.get('/:page', (req, res, next) => {
     res.sendFile(path.join(__dirname, 'public', `${req.params.page}.html`), err => { if (err) next(); });

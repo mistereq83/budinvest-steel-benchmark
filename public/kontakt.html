@@ -1516,7 +1516,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <!-- Prawa Kolumna: Formularz -->
             <div class="contact-form-wrapper gsap-fade-up">
                 <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1.5rem;">Odpowiadamy w ciągu 48 godzin roboczych. Możesz też zadzwonić: <a href="tel:+48511641580" style="color: var(--arc-blue);">+48 511 641 580</a></p>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ Wysłano!'; this.querySelector('button').disabled=true;">
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="form-group">
@@ -1561,11 +1561,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <textarea id="message" name="message" class="form-control" required placeholder="Opisz projekt, załącz wymiary lub wyślij rysunki na kontakt@bud-invest.com" rows="4"></textarea>
                     </div>
                     
-                    <!-- Cloudflare Turnstile Widget -->
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAACv13Q8Up_dXfm5z" data-theme="dark" style="margin-top: 1rem;"></div>
-                    
-                    <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top: 1rem; width: 100%; padding: 1rem;">Wyślij zapytanie ofertowe →</button>
-                    <p id="formStatus" style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.</p>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; padding: 1rem;">Wyślij zapytanie ofertowe →</button>
+                    <p style="color: var(--text-gray); font-size: 0.75rem; margin-top: 0.75rem; text-align: center;">Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.</p>
                     
                 </form>
             </div>
@@ -1684,6 +1681,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <li><a href="/uslugi">Usługi</a></li>
                     <li><a href="/certyfikaty">Certyfikaty</a></li>
                     <li><a href="/realizacje">Realizacje</a></li>
+                    <li><a href="/polityka-prywatnosci">Polityka prywatności</a></li>
                     <!-- <li><a href="/kariera">Kariera</a></li> -->
                     <li><a href="/kontakt">Kontakt</a></li>
                 </ul>
@@ -1705,6 +1703,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p>Projekt i realizacja: Molab</p>
         </div>
     </footer>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
@@ -1790,68 +1789,6 @@ if (navEl) {
 })();
 
 // Language Switcher — no JS needed, links have correct href from build
-</script>
-
-<!-- Cloudflare Turnstile -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-<!-- Contact Form Submit Handler -->
-<script>
-document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    const status = document.getElementById('formStatus');
-    const origText = btn.textContent;
-    
-    btn.textContent = 'Wysyłanie...';
-    btn.disabled = true;
-    
-    try {
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-        
-        const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            btn.textContent = '✓ Wysłano!';
-            btn.style.background = '#22c55e';
-            status.textContent = 'Dziękujemy! Odpowiemy w ciągu 48 godzin.';
-            status.style.color = '#22c55e';
-            this.reset();
-            if (typeof turnstile !== 'undefined') turnstile.reset();
-        } else {
-            btn.textContent = '✗ Błąd — spróbuj ponownie';
-            btn.style.background = '#ef4444';
-            status.textContent = result.error || 'Coś poszło nie tak. Spróbuj ponownie.';
-            status.style.color = '#ef4444';
-            btn.disabled = false;
-            setTimeout(() => { 
-                btn.textContent = origText; 
-                btn.style.background = ''; 
-                status.textContent = 'Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.';
-                status.style.color = 'var(--text-gray)';
-            }, 4000);
-        }
-    } catch (err) {
-        btn.textContent = '✗ Błąd sieci';
-        btn.style.background = '#ef4444';
-        status.textContent = 'Sprawdź połączenie i spróbuj ponownie.';
-        status.style.color = '#ef4444';
-        btn.disabled = false;
-        setTimeout(() => { 
-            btn.textContent = origText; 
-            btn.style.background = '';
-            status.textContent = 'Twoje dane są bezpieczne. Nie udostępniamy ich podmiotom trzecim.';
-            status.style.color = 'var(--text-gray)';
-        }, 4000);
-    }
-});
 </script>
 
 </body>

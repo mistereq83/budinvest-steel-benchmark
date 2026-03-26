@@ -82,6 +82,11 @@ PAGE_SPECS = [
         'en': ('src/en/kontakt.html', 'contact.html'),
         'de': ('src/de/kontakt.html', 'kontakt.html'),
     }),
+    ('polityka-prywatnosci', {
+        'pl': ('src/polityka-prywatnosci.html', 'polityka-prywatnosci.html'),
+        'en': ('src/en/privacy-policy.html', 'privacy-policy.html'),
+        'de': ('src/de/datenschutz.html', 'datenschutz.html'),
+    }),
 ]
 
 
