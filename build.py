@@ -57,11 +57,11 @@ PAGE_SPECS = [
         'en': ('src/en/realizacje.html', 'projects.html'),
         'de': ('src/de/realizacje.html', 'projekte.html'),
     }),
-    # ('certyfikaty', {  # tymczasowo wyłączone, nowe certyfikaty w drodze
-    #     'pl': ('src/certyfikaty.html', 'certyfikaty.html'),
-    #     'en': ('src/en/certyfikaty.html', 'certifications.html'),
-    #     'de': ('src/de/certyfikaty.html', 'zertifikate.html'),
-    # }),
+    ('certyfikaty', {
+        'pl': ('src/certyfikaty.html', 'certyfikaty.html'),
+        'en': ('src/en/certyfikaty.html', 'certifications.html'),
+        'de': ('src/de/certyfikaty.html', 'zertifikate.html'),
+    }),
     ('park-maszynowy', {
         'pl': ('src/park-maszynowy.html', 'park-maszynowy.html'),
         'en': ('src/en/park-maszynowy.html', 'machinery.html'),
