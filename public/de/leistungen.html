@@ -239,7 +239,7 @@
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
+            overflow-x: clip;
         }
         .logo svg {
             display: block;
@@ -250,7 +250,7 @@
             gap: 2rem;
             align-items: center;
             flex-wrap: nowrap;
-            overflow: hidden;
+            overflow-x: clip;
         }
         .nav-links a {
             font-family: var(--font-head);
@@ -1200,8 +1200,8 @@
         }
         @media (max-width: 768px) {
             .stats-strip-inner { 
-                display: grid; 
-                grid-template-columns: 1fr 1fr; 
+                flex-wrap: wrap; 
+                justify-content: center; 
                 gap: 1rem 2rem; 
                 text-align: center; 
             }
@@ -1232,6 +1232,7 @@
         .nav-links a.active::after {
             width: 100%;
         }
+        .dropdown-content a::after { content: none; }
 
         .footer-links a {
             position: relative;
@@ -1478,7 +1479,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <section class="stats-strip">
     <div class="stats-strip-inner gsap-fade-up">
-        <div class="stat-item">5 Spezialisierungen</div>
+        <div class="stat-item">4 Spezialisierungen</div>
         <div class="stat-item">15+ Jahre Erfahrung</div>
         <div class="stat-item">Märkte PL / DE</div>
         <div class="stat-item">EN 1090 / ISO 3834 zertifiziert</div>

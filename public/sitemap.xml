@@ -93,17 +93,6 @@
   <url><loc>https://budinvest-steel.com/en/services/metal-processing</loc><priority>0.8</priority></url>
   <url><loc>https://budinvest-steel.com/de/leistungen/metallbearbeitung</loc><priority>0.8</priority></url>
 
-  <!-- Prefabrykacja betonu -->
-  <url>
-    <loc>https://budinvest-steel.com/uslugi/prefabrykacja-betonu</loc>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://budinvest-steel.com/uslugi/prefabrykacja-betonu"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://budinvest-steel.com/en/services/concrete-prefabrication"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://budinvest-steel.com/de/leistungen/betonfertigteile"/>
-    <priority>0.8</priority>
-  </url>
-  <url><loc>https://budinvest-steel.com/en/services/concrete-prefabrication</loc><priority>0.8</priority></url>
-  <url><loc>https://budinvest-steel.com/de/leistungen/betonfertigteile</loc><priority>0.8</priority></url>
-
   <!-- Realizacje / Projects / Projekte -->
   <url>
     <loc>https://budinvest-steel.com/realizacje</loc>

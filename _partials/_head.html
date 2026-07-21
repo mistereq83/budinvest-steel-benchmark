@@ -226,7 +226,7 @@
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
+            overflow-x: clip;
         }
         .logo svg {
             display: block;
@@ -237,7 +237,7 @@
             gap: 2rem;
             align-items: center;
             flex-wrap: nowrap;
-            overflow: hidden;
+            overflow-x: clip;
         }
         .nav-links a {
             font-family: var(--font-head);
@@ -1181,8 +1181,8 @@
         }
         @media (max-width: 768px) {
             .stats-strip-inner { 
-                display: grid; 
-                grid-template-columns: 1fr 1fr; 
+                flex-wrap: wrap; 
+                justify-content: center; 
                 gap: 1rem 2rem; 
                 text-align: center; 
             }
@@ -1213,6 +1213,7 @@
         .nav-links a.active::after {
             width: 100%;
         }
+        .dropdown-content a::after { content: none; }
 
         .footer-links a {
             position: relative;
