@@ -69,10 +69,10 @@ app.post('/api/contact', async (req, res) => {
 
         // Prepare email content
         const subjectMap = {
-            'wycena-konstrukcje': 'Wycena — konstrukcje stalowe',
-            'wycena-zbiorniki': 'Wycena — zbiorniki ciśnieniowe', 
-            'wycena-rurociagi': 'Wycena — rurociągi przemysłowe',
-            'wycena-obrobka': 'Wycena — obróbka metali',
+            'wycena-konstrukcje': 'Wycena - konstrukcje stalowe',
+            'wycena-zbiorniki': 'Wycena - zbiorniki ciśnieniowe', 
+            'wycena-rurociagi': 'Wycena - rurociągi przemysłowe',
+            'wycena-obrobka': 'Wycena - obróbka metali',
             'rekrutacja': 'Rekrutacja / Praca',
             'inne': 'Inne'
         };

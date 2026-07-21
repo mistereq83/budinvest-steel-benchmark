@@ -750,7 +750,7 @@
             /* Service subpage section padding */
             section[style*="padding: 5rem 5%"] { padding: 3rem 5% !important; }
             
-            /* Fix: Certyfikaty section — text above images on mobile */
+            /* Fix: Certyfikaty section - text above images on mobile */
             .cert-section .about-grid {
                 direction: ltr !important;
                 display: flex !important;
@@ -798,7 +798,7 @@
             }
         }
 
-        /* Services Hub — Large Cards */
+        /* Services Hub - Large Cards */
         .services-hub {
             padding: 6rem 5%;
         }
@@ -1163,7 +1163,7 @@
             .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
-        /* CLS prevention — aspect ratio on images */
+        /* CLS prevention - aspect ratio on images */
         .project-card img {
             aspect-ratio: 16/9;
             width: 100%;
@@ -1497,7 +1497,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <div class="form-group"><label for="email" class="form-label">Email</label><input type="email" id="email" name="email" class="form-control" required placeholder="john@company.com" autocomplete="email"></div>
                     <div class="form-group"><label for="phone" class="form-label">Phone <span style="color: var(--text-gray); font-weight: 400;">(optional)</span></label><input type="tel" id="phone" name="phone" class="form-control" placeholder="+48 511 000 000" autocomplete="tel"></div>
                 </div>
-                <div class="form-group"><label for="subject" class="form-label">Subject</label><select id="subject" name="subject" class="form-control" required><option value="" disabled selected>Select...</option><option value="wycena-konstrukcje">Quote — steel structures</option><option value="wycena-zbiorniki">Quote — pressure vessels</option><option value="wycena-rurociagi">Quote — industrial pipelines</option><option value="wycena-obrobka">Quote — metal processing</option><option value="rekrutacja">Recruitment / Careers</option><option value="inne">Other</option></select></div>
+                <div class="form-group"><label for="subject" class="form-label">Subject</label><select id="subject" name="subject" class="form-control" required><option value="" disabled selected>Select...</option><option value="wycena-konstrukcje">Quote - steel structures</option><option value="wycena-zbiorniki">Quote - pressure vessels</option><option value="wycena-rurociagi">Quote - industrial pipelines</option><option value="wycena-obrobka">Quote - metal processing</option><option value="rekrutacja">Recruitment / Careers</option><option value="inne">Other</option></select></div>
                 <div class="form-group"><label for="message" class="form-label">Project description</label><textarea id="message" name="message" class="form-control" required placeholder="Describe your project, include dimensions or send drawings to kontakt@bud-invest.com" rows="4"></textarea></div>
                 <!-- Cloudflare Turnstile Widget -->
                 <div style="display: flex; justify-content: center; margin-top: 1.5rem; margin-bottom: 0.5rem;"><div class="cf-turnstile" data-sitekey="0x4AAAAAACv13Q8Up_dXfm5z" data-theme="dark" data-size="normal"></div></div>
@@ -1631,7 +1631,7 @@ if (navEl) {
     }, { passive: true });
 }
 
-// Hero video lazy load — all devices, smooth fade-in
+// Hero video lazy load - all devices, smooth fade-in
 (function() {
     const vid = document.getElementById('heroVideo');
     if (!vid) return;
@@ -1644,7 +1644,7 @@ if (navEl) {
         vid.play().then(() => {
             vid.style.opacity = '1';
         }).catch(() => {
-            // Autoplay blocked — show poster via hero-bg, keep video hidden
+            // Autoplay blocked - show poster via hero-bg, keep video hidden
         });
     }
     
@@ -1655,7 +1655,7 @@ if (navEl) {
     }
 })();
 
-// Language Switcher — no JS needed, links have correct href from build
+// Language Switcher - no JS needed, links have correct href from build
 </script>
 
 <!-- Cloudflare Turnstile -->
@@ -1692,7 +1692,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
             this.reset();
             if (typeof turnstile !== 'undefined') turnstile.reset();
         } else {
-            btn.textContent = '✗ Błąd — spróbuj ponownie';
+            btn.textContent = '✗ Błąd - spróbuj ponownie';
             btn.style.background = '#ef4444';
             status.textContent = result.error || 'Coś poszło nie tak.';
             status.style.color = '#ef4444';

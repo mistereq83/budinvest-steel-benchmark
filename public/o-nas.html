@@ -750,7 +750,7 @@
             /* Service subpage section padding */
             section[style*="padding: 5rem 5%"] { padding: 3rem 5% !important; }
             
-            /* Fix: Certyfikaty section — text above images on mobile */
+            /* Fix: Certyfikaty section - text above images on mobile */
             .cert-section .about-grid {
                 direction: ltr !important;
                 display: flex !important;
@@ -798,7 +798,7 @@
             }
         }
 
-        /* Services Hub — Large Cards */
+        /* Services Hub - Large Cards */
         .services-hub {
             padding: 6rem 5%;
         }
@@ -1163,7 +1163,7 @@
             .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
-        /* CLS prevention — aspect ratio on images */
+        /* CLS prevention - aspect ratio on images */
         .project-card img {
             aspect-ratio: 16/9;
             width: 100%;
@@ -1488,7 +1488,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <section class="about-section" id="o-firmie" style="padding-top: 4rem;">
         <div class="about-grid">
             <div class="about-image-wrapper gsap-fade-up">
-                <img src="/images/realizacje/realizacja-1.jpg" alt="Montaż konstrukcji stalowej — BUD-INVEST" class="about-image" loading="lazy">
+                <img src="/images/realizacje/realizacja-1.jpg" alt="Montaż konstrukcji stalowej - BUD-INVEST" class="about-image" loading="lazy">
             </div>
             <div class="about-content gsap-fade-up">
                 <span class="mono-text">Kim jesteśmy</span>
@@ -1569,7 +1569,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <span class="mono-text">Zaplecze i Zespół</span>
                 <h2>Eksperci od Metalu</h2>
                 <p>Siłą Budinvest Steel są ludzie. Nasz zespół tworzą wysoko wykwalifikowani inżynierowie, technolodzy i certyfikowani spawacze posiadający uprawnienia do pracy z zaawansowanymi technologiami spawania (TIG, MIG, MAG).</p>
-                <p>Dysponujemy nowoczesną halą produkcyjną i świetnie wyposażoną spawalnią, która pozwala nam na kompleksową prefabrykację elementów stalowych. Kontrolujemy każdy etap procesu — od projektowania i cięcia materiału, aż po zabezpieczenia antykorozyjne i końcowy montaż na obiekcie.</p>
+                <p>Dysponujemy nowoczesną halą produkcyjną i świetnie wyposażoną spawalnią, która pozwala nam na kompleksową prefabrykację elementów stalowych. Kontrolujemy każdy etap procesu - od projektowania i cięcia materiału, aż po zabezpieczenia antykorozyjne i końcowy montaż na obiekcie.</p>
             </div>
         </div>
     </section>
@@ -1693,7 +1693,7 @@ if (navEl) {
     }, { passive: true });
 }
 
-// Hero video lazy load — all devices, smooth fade-in
+// Hero video lazy load - all devices, smooth fade-in
 (function() {
     const vid = document.getElementById('heroVideo');
     if (!vid) return;
@@ -1706,7 +1706,7 @@ if (navEl) {
         vid.play().then(() => {
             vid.style.opacity = '1';
         }).catch(() => {
-            // Autoplay blocked — show poster via hero-bg, keep video hidden
+            // Autoplay blocked - show poster via hero-bg, keep video hidden
         });
     }
     
@@ -1717,7 +1717,7 @@ if (navEl) {
     }
 })();
 
-// Language Switcher — no JS needed, links have correct href from build
+// Language Switcher - no JS needed, links have correct href from build
 </script>
 
 <!-- Cloudflare Turnstile -->
@@ -1754,7 +1754,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
             this.reset();
             if (typeof turnstile !== 'undefined') turnstile.reset();
         } else {
-            btn.textContent = '✗ Błąd — spróbuj ponownie';
+            btn.textContent = '✗ Błąd - spróbuj ponownie';
             btn.style.background = '#ef4444';
             status.textContent = result.error || 'Coś poszło nie tak.';
             status.style.color = '#ef4444';

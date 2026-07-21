@@ -69,7 +69,7 @@ if (navEl) {
     }, { passive: true });
 }
 
-// Hero video lazy load — desktop only, after page fully loaded
+// Hero video lazy load - desktop only, after page fully loaded
 (function() {
     const vid = document.getElementById('heroVideo');
     if (!vid) return;
@@ -82,7 +82,7 @@ if (navEl) {
     });
 })();
 
-// Language Switcher — no JS needed, links have correct href from build
+// Language Switcher - no JS needed, links have correct href from build
 </script>
 
 <!-- Cloudflare Turnstile -->
@@ -119,7 +119,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
             this.reset();
             if (typeof turnstile !== 'undefined') turnstile.reset();
         } else {
-            btn.textContent = '✗ Błąd — spróbuj ponownie';
+            btn.textContent = '✗ Błąd - spróbuj ponownie';
             btn.style.background = '#ef4444';
             status.textContent = result.error || 'Coś poszło nie tak.';
             status.style.color = '#ef4444';
